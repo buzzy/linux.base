@@ -4,9 +4,11 @@ set -x
 
 #KERNEL:
 apt-get update
-apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3
+apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
+cd /opt
+git clone https://github.com/buzzy/linux.base.git
 mkdir /opt/sysroot
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
@@ -14,11 +16,8 @@ wget -O /opt/kernel.tar.gz https://chromium.googlesource.com/chromiumos/third_pa
 mkdir /opt/kernel
 tar xfv /opt/kernel.tar.gz -C /opt/kernel
 cd /opt/kernel
-wget https://raw.githubusercontent.com/buzzy/PKGBUILDs/master/core/linux-oak/log2.patch
-patch -p1 < log2.patch
-wget https://raw.githubusercontent.com/buzzy/PKGBUILDs/master/core/linux-oak/config.chromeos
-wget https://raw.githubusercontent.com/buzzy/PKGBUILDs/master/core/linux-oak/config_append_to_chromeos.txt
-cat config.chromeos config_append_to_chromeos.txt > .config
+patch -p1 < /opt/linux.base/log2.patch
+cat /opt/linux.base/config.chromeos /opt/linux.base/config.chromeos.extra > .config
 cp include/linux/compiler-gcc5.h include/linux/compiler-gcc8.h
 make oldconfig
 make prepare
@@ -31,14 +30,11 @@ make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
 make INSTALL_HDR_PATH=/opt/sysroot/usr headers_install
 find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
-wget https://raw.githubusercontent.com/buzzy/PKGBUILDs/master/core/linux-oak/kernel.its
-mkimage -D "-I dts -O dtb -p 2048" -f kernel.its vmlinux.uimg
+mkimage -D "-I dts -O dtb -p 2048" -f /opt/linux.base/kernel.its vmlinux.uimg
 dd if=/dev/zero of=bootloader.bin bs=512 count=1
-wget https://github.com/buzzy/PKGBUILDs/raw/master/core/linux-oak/kernel.keyblock
-wget https://github.com/buzzy/PKGBUILDs/raw/master/core/linux-oak/kernel_data_key.vbprivk
 #echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd quiet loglevel=0" > cmdline
 echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
-vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock kernel.keyblock --signprivate kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
+vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock /opt/linux.base/kernel.keyblock --signprivate /opt/linux.base/kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
 cp vmlinux.kpart /opt/sysroot/boot/
 
 #BUSYBOX:
@@ -48,8 +44,7 @@ cd /opt
 wget https://busybox.net/downloads/busybox-1.30.1.tar.bz2
 tar xfv busybox-1.30.1.tar.bz2
 cd busybox-1.30.1
-wget -O .config https://raw.githubusercontent.com/buzzy/PKGBUILDs/master/core/linux-oak/config.busybox
-#make menuconfig
+cp /opt/linux.base/config.busybox .config
 make -j$(nproc)
 make install
 unlink /opt/sysroot/linuxrc
@@ -65,10 +60,11 @@ tar xfv crosstool-ng-1.24.0.tar.xz
 cd crosstool-ng-1.24.0
 ./configure --enable-local
 make
-wget -O .config https://raw.githubusercontent.com/buzzy/PKGBUILDs/master/core/linux-oak/config.crosstool
+cp /opt/linux.base/config.crosstool .config
 ./ct-ng build
 cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/* /opt/sysroot/
 
 #CHROMEOS BINARIES
+cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv ~/x-tools/* /opt/sysroot/temporary/
