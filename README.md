@@ -4,4 +4,6 @@ wget -O /tmp/create.sh https://raw.githubusercontent.com/buzzy/linux.base/master
 
 mkdir /opt/sysroot
 
-docker run -v /tmp/create.sh:/create.sh --mount type=bind,source=/opt/sysroot,target=/opt/sysroot --rm debian:buster bash create.sh
+docker run -it -v /tmp/create.sh:/create.sh --mount type=bind,source=/opt/sysroot,target=/opt/sysroot --rm debian:buster bash
+
+bash create.sh
