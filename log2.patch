@@ -1,0 +1,11 @@
+--- ./include/linux/log2.h 2019-06-09 15:13:33.000000000 +0800
++++ ./include/linux/log2.h	2019-06-09 16:13:05.455506929 +0800
+@@ -18,7 +18,7 @@
+ /*
+  * deal with unrepresentable constant logarithms
+  */
+-extern __attribute__((const, noreturn))
++extern __attribute__((const))
+ int ____ilog2_NaN(void);
+ 
+ /*

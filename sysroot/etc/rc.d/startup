@@ -1,0 +1,14 @@
+#!/bin/ash
+
+#Mount all drives
+#mount -t tmpfs -o size=64k,mode=0755 tmpfs /dev
+#mkdir /dev/pts
+#mount -t devpts devpts /dev/pts
+#mount -t proc proc /proc
+#mount -t sysfs sysfs /sys
+#echo /sbin/mdev > /proc/sys/kernel/hotplug
+#mdev -s
+
+mount -t proc none /proc
+mount -t sysfs none /sys
+
