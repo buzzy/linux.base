@@ -74,7 +74,7 @@ cp /opt/linux.base/config.crosstool .config
 cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/* /opt/sysroot/
 
 #CHROMEOS BINARIES
-#cp -rv /opt/linux.base/sysroot/* /opt/sysroot
+cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv ~/x-tools/* /opt/sysroot/temporary/
 
