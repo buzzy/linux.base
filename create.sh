@@ -26,7 +26,7 @@ make -j$(nproc) modules
 #make dtbs
 make -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
-#make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
+make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
 make INSTALL_HDR_PATH=/opt/sysroot/usr headers_install
 find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
@@ -36,6 +36,7 @@ dd if=/dev/zero of=bootloader.bin bs=512 count=1
 #echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd quiet loglevel=0" > cmdline
 echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
 vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock /opt/linux.base/kernel.keyblock --signprivate /opt/linux.base/kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
+#mkdir /opt/sysroot/boot
 cp vmlinux.kpart /opt/sysroot/boot/
 
 #BUSYBOX:
