@@ -72,6 +72,8 @@ cp -rv ~/x-tools/* /opt/sysroot/temporary/
 
 #cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/bin
 #ln -s arm-linux-gnueabihf-gcc /bin/gcc
+#ln -s gcc /bin/cc
+
 #mkdir /opt/sysroot/lib/arm-linux-gnueabihf
 #cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/lib/* /opt/sysroot/lib/arm-linux-gnueabihf
 #mkdir -p /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8
