@@ -55,6 +55,7 @@ mkdir /opt/sysroot/tmp
 chmod 1777 /opt/sysroot/tmp
 
 #CROSSTOOL-NG:
+cd /opt
 wget http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.24.0.tar.xz
 tar xfv crosstool-ng-1.24.0.tar.xz
 cd crosstool-ng-1.24.0
