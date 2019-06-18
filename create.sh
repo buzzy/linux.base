@@ -9,7 +9,6 @@ ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 #ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
 cd /opt
 git clone https://github.com/buzzy/linux.base.git
-#mkdir /opt/sysroot
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
 wget -O /opt/kernel.tar.gz https://chromium.googlesource.com/chromiumos/third_party/kernel/+archive/86596f58eadf.tar.gz
@@ -23,7 +22,7 @@ make oldconfig
 make prepare
 make -j$(nproc) Image
 make -j$(nproc) modules
-#make dtbs
+make dtbs
 make -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
 make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
@@ -36,7 +35,6 @@ dd if=/dev/zero of=bootloader.bin bs=512 count=1
 #echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd quiet loglevel=0" > cmdline
 echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
 vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock /opt/linux.base/kernel.keyblock --signprivate /opt/linux.base/kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
-#mkdir /opt/sysroot/boot
 cp vmlinux.kpart /opt/sysroot/boot/
 
 #BUSYBOX:
