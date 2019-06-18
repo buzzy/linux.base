@@ -71,7 +71,7 @@ cd crosstool-ng-1.24.0
 make
 cp /opt/linux.base/config.crosstool .config
 ./ct-ng build
-cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/* /opt/sysroot/
+#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/* /opt/sysroot/
 
 #CHROMEOS BINARIES
 cp -rv /opt/linux.base/sysroot/* /opt/sysroot
