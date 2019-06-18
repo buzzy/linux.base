@@ -9,7 +9,7 @@ ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 #ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
 cd /opt
 git clone https://github.com/buzzy/linux.base.git
-mkdir /opt/sysroot
+#mkdir /opt/sysroot
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
 wget -O /opt/kernel.tar.gz https://chromium.googlesource.com/chromiumos/third_party/kernel/+archive/86596f58eadf.tar.gz
