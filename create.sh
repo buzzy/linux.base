@@ -2,6 +2,14 @@
 set -e
 set -x
 
+#SKELETON
+mkdir -p /opt/sysroot/usr/bin
+mkdir /opt/sysroot/usr/lib
+mkdir /opt/sysroot/usr/sbin
+ln -s usr/bin /opt/sysroot/bin
+ln -s usr/sbin /opt/sysroot/sbin
+ln -s usr/lib /opt/sysroot/lib
+
 #KERNEL:
 apt-get update
 apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git
@@ -66,20 +74,23 @@ cp /opt/linux.base/config.crosstool .config
 cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/* /opt/sysroot/
 
 #CHROMEOS BINARIES
-cp -rv /opt/linux.base/sysroot/* /opt/sysroot
+#cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv ~/x-tools/* /opt/sysroot/temporary/
 
-cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
-ln -s arm-linux-gnueabihf-gcc /usr/bin/gcc
-ln -s gcc /usr/bin/cc
+cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/lib
 
-mkdir -p /lib/gcc/arm-linux-gnueabihf/8.3.0
+cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/bin
+ln -s arm-linux-gnueabihf-gcc /opt/sysroot/bin/gcc
+ln -s gcc /opt/sysroot/bin/cc
 
+#WRONG! mkdir -p /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8.3.0
+#WRONG! cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/libexec/gcc/arm-linux-gnueabihf/8.3.0/* /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8.3.0
+
+#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/libexec/* /opt/sysroot/usr/libexec
+#mkdir -p /opt/sysroot/lib/gcc/arm-linux-gnueabihf/8.3.0
 
 #mkdir /opt/sysroot/lib/arm-linux-gnueabihf
 #cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/lib/* /opt/sysroot/lib/arm-linux-gnueabihf
 #mkdir -p /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8
-#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/libexec /opt/sysroot
-#mkdir -p /opt/sysroot/lib/gcc/arm-linux-gnueabihf/8.3.0
 #cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/lib/* /opt/sysroot/lib/gcc/arm-linux-gnueabihf/8.3.0
