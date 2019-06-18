@@ -68,9 +68,12 @@ cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabih
 cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv ~/x-tools/* /opt/sysroot/temporary/
-cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/bin
-ln -s arm-linux-gnueabihf-gcc /bin/gcc
-mkdir /opt/sysroot/lib/arm-linux-gnueabihf
-cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/lib/* /opt/sysroot/lib/arm-linux-gnueabihf
-#mkdir -p /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8
 
+#cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/bin
+#ln -s arm-linux-gnueabihf-gcc /bin/gcc
+#mkdir /opt/sysroot/lib/arm-linux-gnueabihf
+#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/lib/* /opt/sysroot/lib/arm-linux-gnueabihf
+#mkdir -p /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8
+#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/libexec /opt/sysroot
+#mkdir -p /opt/sysroot/lib/gcc/arm-linux-gnueabihf/8.3.0
+#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/lib/* /opt/sysroot/lib/gcc/arm-linux-gnueabihf/8.3.0
