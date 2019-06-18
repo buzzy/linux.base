@@ -30,7 +30,8 @@ make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
 make INSTALL_HDR_PATH=/opt/sysroot/usr headers_install
 find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
-mkimage -D "-I dts -O dtb -p 2048" -f /opt/linux.base/kernel.its vmlinux.uimg
+cp /opt/linux.base/kernel.its .
+mkimage -D "-I dts -O dtb -p 2048" -f kernel.its vmlinux.uimg
 dd if=/dev/zero of=bootloader.bin bs=512 count=1
 #echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd quiet loglevel=0" > cmdline
 echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
