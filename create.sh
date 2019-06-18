@@ -23,10 +23,10 @@ make oldconfig
 make prepare
 make -j$(nproc) Image
 make -j$(nproc) modules
-make dtbs
+#make dtbs
 make -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
-make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
+#make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
 make INSTALL_HDR_PATH=/opt/sysroot/usr headers_install
 find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
