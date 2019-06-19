@@ -79,7 +79,7 @@ cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv ~/x-tools/* /opt/sysroot/temporary/
 
-cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
+cp -rv ~/x-tools/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
 
 #cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
 #ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
