@@ -78,11 +78,11 @@ cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv ~/x-tools/* /opt/sysroot/temporary/
 
-cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/lib
+cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
 
-cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/bin
-ln -s arm-linux-gnueabihf-gcc /opt/sysroot/bin/gcc
-ln -s gcc /opt/sysroot/bin/cc
+cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
+ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
+ln -s gcc /opt/sysroot/usr/bin/cc
 
 #WRONG! mkdir -p /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8.3.0
 #WRONG! cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/libexec/gcc/arm-linux-gnueabihf/8.3.0/* /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8.3.0
