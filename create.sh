@@ -63,6 +63,7 @@ mkdir /opt/sysroot/tmp
 chmod 1777 /opt/sysroot/tmp
 
 #CROSSTOOL-NG:
+mkdir /root/src
 cd /opt
 wget http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.24.0.tar.xz
 tar xfv crosstool-ng-1.24.0.tar.xz
@@ -80,9 +81,14 @@ cp -rv ~/x-tools/* /opt/sysroot/temporary/
 
 cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
 
-cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
-ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
-ln -s gcc /opt/sysroot/usr/bin/cc
+#cp ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
+#ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
+#ln -s gcc /opt/sysroot/usr/bin/cc
+
+#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/libexec /usr
+
+
+
 
 #WRONG! mkdir -p /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8.3.0
 #WRONG! cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/libexec/gcc/arm-linux-gnueabihf/8.3.0/* /opt/sysroot/usr/lib/gcc/arm-linux-gnueabihf/8.3.0
