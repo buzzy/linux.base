@@ -3,6 +3,7 @@ set -e
 set -x
 
 #SKELETON
+rm -fr /opt/sysroot/*
 mkdir -p /opt/sysroot/usr/bin
 mkdir /opt/sysroot/usr/lib
 mkdir /opt/sysroot/usr/sbin
