@@ -13,13 +13,14 @@ ln -s usr/lib /opt/sysroot/lib
 
 #KERNEL:
 apt-get update
-apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git
+apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git nano kmod
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 #ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
 cd /opt
 git clone https://github.com/buzzy/linux.base.git
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
+export WIFIVERSION=
 wget -O /opt/kernel.tar.gz https://chromium.googlesource.com/chromiumos/third_party/kernel/+archive/86596f58eadf.tar.gz
 mkdir /opt/kernel
 tar xfv /opt/kernel.tar.gz -C /opt/kernel
@@ -35,7 +36,7 @@ make dtbs
 make -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
 make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
-make INSTALL_HDR_PATH=/opt/sysroot/usr headers_install
+make INSTALL_HDR_PATH="/opt/sysroot/usr" headers_install
 find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
 cp /opt/linux.base/kernel.its .
@@ -45,6 +46,7 @@ dd if=/dev/zero of=bootloader.bin bs=512 count=1
 echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
 vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock /opt/linux.base/kernel.keyblock --signprivate /opt/linux.base/kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
 cp vmlinux.kpart /opt/sysroot/boot/
+depmod -b /opt/sysroot -F System.map "3.18.0-19095-g86596f58eadf"
 
 #BUSYBOX:
 export ARCH=arm
@@ -61,6 +63,7 @@ mkdir /opt/sysroot/sys
 mkdir -p /opt/sysroot/dev/pts
 mkdir /opt/sysroot/dev/shm
 mkdir /opt/sysroot/tmp
+mkdir -p /opt/sysroot/var/log
 chmod 1777 /opt/sysroot/tmp
 
 #CROSSTOOL-NG:
