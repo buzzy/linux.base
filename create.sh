@@ -58,7 +58,6 @@ cd busybox-1.30.1
 cp /opt/linux.base/config.busybox .config
 make -j$(nproc)
 make install
-unlink /opt/sysroot/linuxrc
 mkdir /opt/sysroot/sys
 mkdir -p /opt/sysroot/dev/pts
 mkdir /opt/sysroot/dev/shm
