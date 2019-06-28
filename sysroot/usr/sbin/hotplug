@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo $* >> /tmp/hotplug.log
+env >> /tmp/hotplug.log
+
