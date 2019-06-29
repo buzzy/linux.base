@@ -81,11 +81,12 @@ cp /opt/linux.base/config.crosstool .config
 #cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/* /opt/sysroot/
 
 cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/* /opt/sysroot/usr/lib
 cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin/* /opt/sysroot/usr/sbin
 cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/sbin/* /opt/sysroot/usr/sbin
 cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/bin/* /opt/sysroot/usr/bin
 
+rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/*.so
+cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/* /opt/sysroot/usr/lib
 
 cp /opt/gcc/bin/* /opt/sysroot/usr/bin
 ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
