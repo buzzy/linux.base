@@ -17,8 +17,6 @@ ln -s usr/lib /opt/sysroot/lib
 #CHROMEOS BINARIES
 cd /opt
 cp -rv /opt/linux.base/sysroot/* /opt/sysroot
-mkdir /opt/sysroot/temporary
-cp -rv /opt/gcc/* /opt/sysroot/temporary/
 
 #KERNEL:
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
@@ -103,3 +101,5 @@ cp -rv /opt/gcc/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
 
 
 #FINALIZE
+mkdir /opt/sysroot/temporary
+cp -rv /opt/gcc/* /opt/sysroot/temporary/
