@@ -1,1 +1,1 @@
-#Nothing here so far
+export CPATH="/usr/include"
