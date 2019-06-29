@@ -12,6 +12,8 @@ ln -s usr/sbin /opt/sysroot/sbin
 ln -s usr/lib /opt/sysroot/lib
 
 #CHROMEOS BINARIES
+cd /opt
+git clone https://github.com/buzzy/linux.base.git
 cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv /opt/gcc/* /opt/sysroot/temporary/
@@ -21,8 +23,6 @@ apt-get update
 apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git nano kmod
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 #ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
-cd /opt
-git clone https://github.com/buzzy/linux.base.git
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
 export WIFIVERSION=
