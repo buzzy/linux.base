@@ -11,4 +11,5 @@ bash ./linux.base/create.sh
 ## COPY TO USB DRIVE
 
 dd if=/opt/sysroot/boot/vmkernel.kpart /dev/sda1
+
 rsync -aAXv /opt/sysroot /dev/sda2
