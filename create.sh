@@ -5,20 +5,12 @@ set -x
 #FETCH NEEDED TOOLS
 apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git nano kmod
 
-#SKELETON
-rm -fr /opt/sysroot/*
-mkdir -p /opt/sysroot/usr/bin
-mkdir /opt/sysroot/usr/lib
-mkdir /opt/sysroot/usr/sbin
-ln -s usr/bin /opt/sysroot/bin
-ln -s usr/sbin /opt/sysroot/sbin
-ln -s usr/lib /opt/sysroot/lib
-
 #CHROMEOS BINARIES
-cd /opt
+rm -fr /opt/sysroot/*
 cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 
 #KERNEL:
+cd /opt
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 #ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
 export ARCH=arm64
@@ -61,12 +53,6 @@ cd busybox-1.30.1
 cp /opt/linux.base/config.busybox .config
 make -j$(nproc)
 make install
-mkdir /opt/sysroot/sys
-mkdir -p /opt/sysroot/dev/pts
-mkdir /opt/sysroot/dev/shm
-mkdir /opt/sysroot/tmp
-mkdir -p /opt/sysroot/var/log
-chmod 1777 /opt/sysroot/tmp
 
 #CROSSTOOL-NG:
 mkdir /root/src
