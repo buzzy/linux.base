@@ -2,6 +2,10 @@
 set -e
 set -x
 
+#FETCH NEEDED TOOLS
+apt-get update
+apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git nano kmod
+
 #SKELETON
 rm -fr /opt/sysroot/*
 mkdir -p /opt/sysroot/usr/bin
@@ -19,8 +23,6 @@ mkdir /opt/sysroot/temporary
 cp -rv /opt/gcc/* /opt/sysroot/temporary/
 
 #KERNEL:
-apt-get update
-apt-get install -y gcc-8-aarch64-linux-gnu gcc-8-arm-linux-gnueabihf gawk bison wget patch build-essential u-boot-tools bc vboot-kernel-utils libncurses5-dev g++-arm-linux-gnueabihf flex texinfo unzip help2man libtool-bin python3 git nano kmod
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 #ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
 export ARCH=arm64
