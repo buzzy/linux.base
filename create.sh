@@ -17,7 +17,6 @@ ln -s usr/lib /opt/sysroot/lib
 
 #CHROMEOS BINARIES
 cd /opt
-git clone https://github.com/buzzy/linux.base.git
 cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 mkdir /opt/sysroot/temporary
 cp -rv /opt/gcc/* /opt/sysroot/temporary/
