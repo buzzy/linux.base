@@ -55,7 +55,6 @@ make -j$(nproc)
 make install
 
 #CROSSTOOL-NG:
-mkdir /root/src
 cd /opt
 wget http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.24.0.tar.xz
 tar xfv crosstool-ng-1.24.0.tar.xz
