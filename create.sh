@@ -63,27 +63,26 @@ cd crosstool-ng-1.24.0
 make
 cp /opt/linux.base/config.crosstool .config
 ./ct-ng build
-#cp -rv ~/x-tools/HOST-arm-linux-gnueabihf/arm-linux-gnueabihf/arm-linux-gnueabihf/sysroot/* /opt/sysroot/
 
 cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin/* /opt/sysroot/usr/sbin
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/sbin/* /opt/sysroot/usr/sbin
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/bin/* /opt/sysroot/usr/bin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin/* /opt/sysroot/usr/sbin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/sbin/* /opt/sysroot/usr/sbin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/bin/* /opt/sysroot/usr/bin
 
-rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/*.so
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/* /opt/sysroot/usr/lib
+#rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/*.so
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/* /opt/sysroot/usr/lib
 
-cp /opt/gcc/bin/* /opt/sysroot/usr/bin
-ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
-ln -s gcc /opt/sysroot/usr/bin/cc
+#cp /opt/gcc/bin/* /opt/sysroot/usr/bin
+#ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
+#ln -s gcc /opt/sysroot/usr/bin/cc
 
-cp -rv /opt/gcc/libexec /opt/sysroot/usr
+#cp -rv /opt/gcc/libexec /opt/sysroot/usr
 
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/include/* /opt/sysroot/usr/include
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/include/* /opt/sysroot/usr/include
 
-cp -rv /opt/gcc/lib/* /opt/sysroot/usr/lib
+#cp -rv /opt/gcc/lib/* /opt/sysroot/usr/lib
 
-cp -rv /opt/gcc/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
 
 
 #FINALIZE
