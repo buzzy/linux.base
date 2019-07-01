@@ -15,9 +15,11 @@ ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
 export WIFIVERSION=
-wget -O /opt/kernel.tar.gz https://chromium.googlesource.com/chromiumos/third_party/kernel/+archive/86596f58eadf.tar.gz
-mkdir /opt/kernel
-tar xfv /opt/kernel.tar.gz -C /opt/kernel
+if [ ! -d "/opt/kernel" ]; then
+  wget -O /opt/kernel.tar.gz https://chromium.googlesource.com/chromiumos/third_party/kernel/+archive/86596f58eadf.tar.gz
+  mkdir /opt/kernel
+  tar xfv /opt/kernel.tar.gz -C /opt/kernel
+fi
 cd /opt/kernel
 patch -p1 < /opt/linux.base/log2.patch
 cat /opt/linux.base/config.chromeos /opt/linux.base/config.chromeos.extra > .config
