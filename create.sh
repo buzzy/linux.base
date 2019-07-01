@@ -65,7 +65,7 @@ make
 cp /opt/linux.base/config.crosstool .config
 ./ct-ng build
 
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/* /opt/sysroot
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/* /opt/sysroot
 
 #cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
 #cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin/* /opt/sysroot/usr/sbin
@@ -88,6 +88,13 @@ cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/* /opt/sysroot
 #cp -rv /opt/gcc/lib/* /opt/sysroot/usr/lib
 
 #cp -rv /opt/gcc/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
+
+
+#TRY THIS
+#cp -rv /opt/gcc/arm-linux-gnueabihf/debug-root/usr/bin/* /opt/sysroot/usr/bin
+#rm -fr /opt/gcc/arm-linux-gnueabihf/debug-root
+
+#cp -rv /opt/gcc/* /opt/sysroot/usr
 
 
 #FINALIZE
