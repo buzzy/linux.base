@@ -12,7 +12,6 @@ cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 #KERNEL:
 cd /opt
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
-#ln -s /usr/bin/arm-linux-gnueabihf-gcc-8 /usr/bin/arm-linux-gnueabihf-gcc
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
 export WIFIVERSION=
@@ -41,7 +40,7 @@ dd if=/dev/zero of=bootloader.bin bs=512 count=1
 echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
 vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock /opt/linux.base/kernel.keyblock --signprivate /opt/linux.base/kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
 cp vmlinux.kpart /opt/sysroot/boot/
-depmod -b /opt/sysroot -F System.map "3.18.0-19095-g86596f58eadf"
+#depmod -b /opt/sysroot -F System.map "3.18.0-19095-g86596f58eadf"
 
 #BUSYBOX:
 export ARCH=arm
@@ -64,17 +63,21 @@ make
 cp /opt/linux.base/config.crosstool .config
 ./ct-ng build
 
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin/* /opt/sysroot/usr/sbin
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/sbin/* /opt/sysroot/usr/sbin
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/bin/* /opt/sysroot/usr/bin
+cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/* /opt/sysroot
 
-rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/*.so
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/* /opt/sysroot/usr/lib
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin/* /opt/sysroot/usr/sbin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/sbin/* /opt/sysroot/usr/sbin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/bin/* /opt/sysroot/usr/bin
 
-cp /opt/gcc/bin/* /opt/sysroot/usr/bin
-ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
-ln -s gcc /opt/sysroot/usr/bin/cc
+#rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/*.so
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/* /opt/sysroot/usr/lib
+
+#cp /opt/gcc/bin/* /opt/sysroot/usr/bin
+#ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
+#ln -s gcc /opt/sysroot/usr/bin/cc
+
+####
 
 #cp -rv /opt/gcc/libexec /opt/sysroot/usr
 
