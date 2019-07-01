@@ -42,7 +42,7 @@ dd if=/dev/zero of=bootloader.bin bs=512 count=1
 echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noinitrd" > cmdline
 vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock /opt/linux.base/kernel.keyblock --signprivate /opt/linux.base/kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
 cp vmlinux.kpart /opt/sysroot/boot/
-#depmod -b /opt/sysroot -F System.map "3.18.0-19095-g86596f58eadf"
+depmod -b /opt/sysroot -F System.map "3.18.0-19095-g86596f58eadf"
 
 #BUSYBOX:
 export ARCH=arm
