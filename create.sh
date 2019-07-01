@@ -65,37 +65,28 @@ make
 cp /opt/linux.base/config.crosstool .config
 ./ct-ng build
 
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/* /opt/sysroot
+#mandatory
+cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
 
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin/* /opt/sysroot/usr/sbin
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/sbin/* /opt/sysroot/usr/sbin
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/bin/* /opt/sysroot/usr/bin
-
-#rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/*.so
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/* /opt/sysroot/usr/lib
-
-#cp /opt/gcc/bin/* /opt/sysroot/usr/bin
-#ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
-#ln -s gcc /opt/sysroot/usr/bin/cc
-
-####
-
-#cp -rv /opt/gcc/libexec /opt/sysroot/usr
-
-#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/include/* /opt/sysroot/usr/include
-
-#cp -rv /opt/gcc/lib/* /opt/sysroot/usr/lib
-
+#cp -rv /opt/gcc/bin/* /opt/sysroot/usr/bin
+#rm /opt/gcc/build.log.bz2
 #cp -rv /opt/gcc/arm-linux-gnueabihf/bin/* /opt/sysroot/usr/bin
-
-
-#TRY THIS
-#cp -rv /opt/gcc/arm-linux-gnueabihf/debug-root/usr/bin/* /opt/sysroot/usr/bin
 #rm -fr /opt/gcc/arm-linux-gnueabihf/debug-root
+#cp -rv /opt/gcc/arm-linux-gnueabihf/include -> /opt/sysroot/usr/include
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/sbin -> /opt/sysroot/usr/sbin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/include -> /opt/sysroot/usr/include
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/bin -> /opt/sysroot/usr/bin
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/include -> /opt/sysroot/usr/include
 
-#cp -rv /opt/gcc/* /opt/sysroot/usr
+#this causes seg fault
+#rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib/*.so
 
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/lib -> /opt/sysroot/usr/lib
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/libexec -> /opt/sysroot/usr/libexec
+#cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/usr/sbin -> /opt/sysroot/usr/sbin
+#cp -rv /opt/gcc/bin -> /opt/sysroot/usr/bin
+#cp -rv /opt/gcc/lib -> /opt/sysroot/usr/lib
+#cp -rv /opt/gcc/libexec -> /opt/sysroot/usr/libexec
 
 #FINALIZE
 mkdir /opt/sysroot/temporary
