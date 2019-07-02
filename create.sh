@@ -76,7 +76,7 @@ rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/lib
 
 cp -rv /opt/gcc/* /opt/sysroot/usr
 
-ln -s /usr/lib /usr/arm-linux-gnueabihf/sysroot/lib
+ln -s /usr/lib /opt/sysroot/usr/arm-linux-gnueabihf/sysroot/lib
 ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
 ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/cc
 
