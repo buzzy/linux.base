@@ -95,3 +95,6 @@ CONFIG_CFG80211=y
 
 CONFIG_EXTRA_FIRMWARE="mrvl/sd8897_uapsta.bin mrvl/sd8797_uapsta.bin mrvl/sd8787_uapsta.bin"
 CONFIG_EXTRA_FIRMWARE_DIR="/opt/linux.base/firmware"
+
+CONFIG_NTFS_FS=y
+CONFIG_NTFS_RW=y
