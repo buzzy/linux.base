@@ -32,9 +32,6 @@ make dtbs
 make -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
 make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
-make mrproper
-make ARCH=arm headers_check
-make ARCH=arm INSTALL_HDR_PATH="/opt/sysroot/usr" headers_install
 find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
 cp /opt/linux.base/kernel.its .
@@ -45,6 +42,9 @@ echo "console=tty1 init=/sbin/init root=PARTUUID=%U/PARTNROFF=1 rootwait rw noin
 vbutil_kernel --pack vmlinux.kpart --version 1 --vmlinuz vmlinux.uimg --arch aarch64 --keyblock /opt/linux.base/kernel.keyblock --signprivate /opt/linux.base/kernel_data_key.vbprivk --config cmdline --bootloader bootloader.bin
 cp vmlinux.kpart /opt/sysroot/boot/
 depmod -b /opt/sysroot -F System.map "3.18.0-19095-g86596f58eadf"
+make mrproper
+make ARCH=arm headers_check
+make ARCH=arm INSTALL_HDR_PATH="/opt/sysroot/usr" headers_install
 
 #BUSYBOX:
 export ARCH=arm
