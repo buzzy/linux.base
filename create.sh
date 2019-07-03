@@ -26,7 +26,7 @@ cat /opt/linux.base/config.chromeos /opt/linux.base/config.chromeos.extra > .con
 cp include/linux/compiler-gcc5.h include/linux/compiler-gcc8.h
 make oldconfig
 make prepare
-make -j$(nproc) Image || true
+make -j$(nproc) Image
 make -j$(nproc) modules
 make dtbs
 make -j$(nproc)
