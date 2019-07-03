@@ -59,7 +59,7 @@ make install
 cd /opt
 wget https://ftp.yzu.edu.tw/gnu/binutils/binutils-2.32.tar.xz
 tar xfv binutils-2.32.tar.xz
-cd binutils-2.32.tar.xz
+cd binutils-2.32
 
 ./configure \
   --host=arm-linux-gnueabihf \
