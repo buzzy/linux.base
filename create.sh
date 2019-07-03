@@ -32,7 +32,6 @@ make dtbs
 make -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
 make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
-find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
 cp /opt/linux.base/kernel.its .
 mkimage -D "-I dts -O dtb -p 2048" -f kernel.its vmlinux.uimg
@@ -45,6 +44,7 @@ depmod -b /opt/sysroot -F System.map "3.18.0-19095-g86596f58eadf"
 make mrproper
 make ARCH=arm headers_check
 make ARCH=arm INSTALL_HDR_PATH="/opt/sysroot/usr" headers_install
+find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 
 #BUSYBOX:
 export ARCH=arm
