@@ -55,31 +55,81 @@ cp /opt/linux.base/config.busybox .config
 make -j$(nproc)
 make install
 
-#CROSSTOOL-NG:
+#GLIBC
 cd /opt
-wget http://crosstool-ng.org/download/crosstool-ng/crosstool-ng-1.24.0.tar.xz
-tar xfv crosstool-ng-1.24.0.tar.xz
-cd crosstool-ng-1.24.0
-./configure --enable-local
-make
-cp /opt/linux.base/config.crosstool .config
-./ct-ng build
+wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.xz
+tar xfv glibc-2.29.tar.xz
+cd glibc-2.29
+mkdir build
+cd build
 
-cp -rv /opt/gcc/arm-linux-gnueabihf/sysroot/lib/* /opt/sysroot/usr/lib
+../configure \
+  --host=arm-linux-gnueabihf \
+  --target=arm-linux-gnueabihf \
+	--prefix= \
+	--includedir=/usr/include \
+	--libexecdir=/usr/libexec \
+  --enable-kernel=3.2 \
+	--disable-static \
+	--enable-shared \
+	--datarootdir=/tmp \
+	--localstatedir=/tmp \
+	--with-headers=/opt/sysroot/usr/include
 
-rm -fr /opt/gcc/build.log.bz2
-rm -fr /opt/gcc/share
-rm -fr /opt/gcc/arm-linux-gnueabihf/debug-root
-rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/usr/share
-rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/var
-rm -fr /opt/gcc/arm-linux-gnueabihf/sysroot/lib
+make -j$(nproc)
+make install DESTDIR=/opt/sysroot
+rm -rf /opt/sysroot/tmp/*
 
-cp -rv /opt/gcc/* /opt/sysroot/usr
+#BINUTILS
+cd /opt
+wget https://ftp.yzu.edu.tw/gnu/binutils/binutils-2.32.tar.xz
+tar xfv binutils-2.32.tar.xz
+cd binutils-2.32.tar.xz
 
-ln -s /usr/lib /opt/sysroot/usr/arm-linux-gnueabihf/sysroot/lib
-ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/gcc
-ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/cc
+./configure \
+  --host=arm-linux-gnueabihf \
+  --target=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot \
+  --with-sysroot=/ \
+  --datarootdir=/tmp \
+  --disable-static \
+	--enable-shared \
+  --disable-multilib \
+  --disable-nls
 
-#FINALIZE
-#mkdir /opt/sysroot/temporary
-#cp -rv /opt/gcc/* /opt/sysroot/temporary/
+make tooldir=/opt/sysroot -j$(nproc)
+make tooldir=/opt/sysroot install
+
+#GCC
+cd /opt
+wget http://ftp.tsukuba.wide.ad.jp/software/gcc/releases/gcc-8.3.0/gcc-8.3.0.tar.xz
+tar xfv gcc-8.3.0.tar.xz
+cd gcc-8.3.0.tar.xz
+./contrib/download_prerequisites
+mkdir build
+cd build
+
+../configure \
+  --host=arm-linux-gnueabihf \
+  --target=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot/usr \
+  --with-sysroot=/ \
+  --datarootdir=/tmp \
+  --enable-shared \
+  --enable-threads \
+  --disable-libmudflap \
+  --disable-libssp \
+  --disable-libgomp \
+  --disable-libstdcxx-pch \
+  --with-gnu-as \
+  --with-gnu-ld \
+  --enable-languages=c,c++ \
+  --enable-symvers=gnu \
+  --enable-__cxa_atexit \
+  --enable-c99 \
+  --disable-nls \
+  --disable-multilib \
+  --disable-static
+
+make -j$(nproc)
+make install
