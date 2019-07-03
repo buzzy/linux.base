@@ -63,18 +63,19 @@ cd glibc-2.29
 mkdir build
 cd build
 
+#FIND OUT WHY IT STILL BUILDS STATIC LIBS!!!
 ../configure \
   --host=arm-linux-gnueabihf \
   --target=arm-linux-gnueabihf \
-	--prefix= \
-	--includedir=/usr/include \
-	--libexecdir=/usr/libexec \
+  --prefix= \
+  --includedir=/usr/include \
+  --libexecdir=/usr/libexec \
   --enable-kernel=3.2 \
-	--disable-static \
-	--enable-shared \
-	--datarootdir=/tmp \
-	--localstatedir=/tmp \
-	--with-headers=/opt/sysroot/usr/include
+  --disable-static \
+  --enable-shared \
+  --datarootdir=/tmp \
+  --localstatedir=/tmp \
+  --with-headers=/opt/sysroot/usr/include
 
 make -j$(nproc)
 make install DESTDIR=/opt/sysroot
@@ -93,7 +94,7 @@ cd binutils-2.32.tar.xz
   --with-sysroot=/ \
   --datarootdir=/tmp \
   --disable-static \
-	--enable-shared \
+  --enable-shared \
   --disable-multilib \
   --disable-nls
 
