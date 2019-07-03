@@ -94,4 +94,4 @@ CONFIG_CFG80211=y
 #CONFIG_UEVENT_HELPER_PATH="/sbin/hotplug"
 
 CONFIG_EXTRA_FIRMWARE="mrvl/sd8897_uapsta.bin mrvl/sd8797_uapsta.bin mrvl/sd8787_uapsta.bin"
-CONFIG_EXTRA_FIRMWARE_DIR="/opt/linux.base/sysroot/usr/lib/firmware"
+CONFIG_EXTRA_FIRMWARE_DIR="/opt/linux.base/firmware"
