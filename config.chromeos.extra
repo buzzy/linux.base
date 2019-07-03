@@ -85,13 +85,13 @@ CONFIG_FUSE_FS=y
 #CONFIG_SND_HRTIMER=y
 #CONFIG_SND_RAWMIDI_SEQ=y
 #CONFIG_SND_USB_AUDIO=y
-#CONFIG_MWIFIEX=y
-#CONFIG_MWIFIEX_SDIO=y
+CONFIG_MWIFIEX=y
+CONFIG_MWIFIEX_SDIO=y
 CONFIG_CFG80211=y
 #CONFIG_INPUT_JOYDEV=y
 
 CONFIG_UEVENT_HELPER=y
 CONFIG_UEVENT_HELPER_PATH="/sbin/hotplug"
 
-#CONFIG_EXTRA_FIRMWARE="mrvl/sd8897_uapsta.bin"
-#CONFIG_EXTRA_FIRMWARE_DIR="/opt/linux.base/sysroot/usr/lib/firmware"
+CONFIG_EXTRA_FIRMWARE="mrvl/sd8887_wlan_a2.bin mrvl/sd8897_uapsta.bin mrvl/sd8797_uapsta.bin mrvl/sd8787_uapsta.bin mrvl/sd8786_uapsta.bin"
+CONFIG_EXTRA_FIRMWARE_DIR="/opt/linux.base/sysroot/usr/lib/firmware/"
