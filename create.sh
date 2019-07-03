@@ -71,6 +71,7 @@ cd build
   --includedir=/usr/include \
   --libexecdir=/usr/libexec \
   --enable-kernel=3.2 \
+  --enable-stack-protector=strong \
   --disable-static \
   --enable-shared \
   --datarootdir=/tmp \
