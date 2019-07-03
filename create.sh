@@ -55,33 +55,6 @@ cp /opt/linux.base/config.busybox .config
 make -j$(nproc)
 make install
 
-#GLIBC
-cd /opt
-wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.xz
-tar xfv glibc-2.29.tar.xz
-cd glibc-2.29
-mkdir build
-cd build
-
-#FIND OUT WHY IT STILL BUILDS STATIC LIBS!!!
-../configure \
-  --host=arm-linux-gnueabihf \
-  --target=arm-linux-gnueabihf \
-  --prefix= \
-  --includedir=/usr/include \
-  --libexecdir=/usr/libexec \
-  --enable-kernel=3.2 \
-  --enable-stack-protector=strong \
-  --disable-static \
-  --enable-shared \
-  --datarootdir=/tmp \
-  --localstatedir=/tmp \
-  --with-headers=/opt/sysroot/usr/include
-
-make -j$(nproc)
-make install DESTDIR=/opt/sysroot
-rm -rf /opt/sysroot/tmp/*
-
 #BINUTILS
 cd /opt
 wget https://ftp.yzu.edu.tw/gnu/binutils/binutils-2.32.tar.xz
@@ -90,7 +63,6 @@ cd binutils-2.32.tar.xz
 
 ./configure \
   --host=arm-linux-gnueabihf \
-  --target=arm-linux-gnueabihf \
   --prefix=/opt/sysroot \
   --with-sysroot=/ \
   --datarootdir=/tmp \
@@ -135,3 +107,29 @@ cd build
 
 make -j$(nproc)
 make install
+
+#GLIBC
+cd /opt
+wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.xz
+tar xfv glibc-2.29.tar.xz
+cd glibc-2.29
+mkdir build
+cd build
+
+#FIND OUT WHY IT STILL BUILDS STATIC LIBS!!!
+../configure \
+  --host=arm-linux-gnueabihf \
+  --prefix= \
+  --includedir=/usr/include \
+  --libexecdir=/usr/libexec \
+  --enable-kernel=3.2 \
+  --enable-stack-protector=strong \
+  --disable-static \
+  --enable-shared \
+  --datarootdir=/tmp \
+  --localstatedir=/tmp \
+  --with-headers=/opt/sysroot/usr/include
+
+make -j$(nproc)
+make install DESTDIR=/opt/sysroot
+rm -rf /opt/sysroot/tmp/*
