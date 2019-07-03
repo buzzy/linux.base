@@ -32,7 +32,7 @@ make dtbs
 make -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
 make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
-make INSTALL_HDR_PATH="/opt/sysroot/usr" headers_install
+make ARCH=arm INSTALL_HDR_PATH="/opt/sysroot/usr" headers_install
 find /opt/sysroot/usr/include \( -name .install -o -name ..install.cmd \) -delete
 rm -f /opt/sysroot/lib/modules/*/{source,build}
 cp /opt/linux.base/kernel.its .
@@ -54,6 +54,32 @@ cd busybox-1.30.1
 cp /opt/linux.base/config.busybox .config
 make -j$(nproc)
 make install
+
+#GLIBC
+cd /opt
+wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.xz
+tar xfv glibc-2.29.tar.xz
+cd glibc-2.29
+mkdir build
+cd build
+
+#FIND OUT WHY IT STILL BUILDS STATIC LIBS!!!
+../configure \
+  --host=arm-linux-gnueabihf \
+  --prefix= \
+  --includedir=/usr/include \
+  --libexecdir=/usr/libexec \
+  --enable-kernel=3.2 \
+  --enable-stack-protector=strong \
+  --disable-static \
+  --enable-shared \
+  --datarootdir=/tmp \
+  --localstatedir=/tmp \
+  --with-headers=/opt/sysroot/usr/include
+
+make -j$(nproc)
+make install DESTDIR=/opt/sysroot
+rm -rf /opt/sysroot/tmp/*
 
 #BINUTILS
 cd /opt
@@ -107,29 +133,3 @@ cd build
 
 make -j$(nproc)
 make install
-
-#GLIBC
-cd /opt
-wget https://ftp.gnu.org/gnu/glibc/glibc-2.29.tar.xz
-tar xfv glibc-2.29.tar.xz
-cd glibc-2.29
-mkdir build
-cd build
-
-#FIND OUT WHY IT STILL BUILDS STATIC LIBS!!!
-../configure \
-  --host=arm-linux-gnueabihf \
-  --prefix= \
-  --includedir=/usr/include \
-  --libexecdir=/usr/libexec \
-  --enable-kernel=3.2 \
-  --enable-stack-protector=strong \
-  --disable-static \
-  --enable-shared \
-  --datarootdir=/tmp \
-  --localstatedir=/tmp \
-  --with-headers=/opt/sysroot/usr/include
-
-make -j$(nproc)
-make install DESTDIR=/opt/sysroot
-rm -rf /opt/sysroot/tmp/*
