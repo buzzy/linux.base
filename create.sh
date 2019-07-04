@@ -71,7 +71,7 @@ cd build
   --prefix= \
   --includedir=/usr/include \
   --libexecdir=/usr/libexec \
-  --enable-kernel=3.2 \
+  --enable-kernel=3.18 \
   --enable-stack-protector=strong \
   --disable-static \
   --enable-shared \
