@@ -71,23 +71,24 @@ cd build
   --prefix= \
   --includedir=/usr/include \
   --libexecdir=/usr/libexec \
+  --datarootdir=/tmp \
+  --localstatedir=/tmp \
+  --with-__thread \
+  --with-tls \
+  --with-fp \
+  --with-headers=/opt/sysroot/usr/include \
+  --without-cvs \
+  --without-gd \
   --enable-kernel=3.18.0 \
   --enable-stack-protector=strong \
   --enable-shared \
-  --with-__thread \
-  --with-tls \
-  --datarootdir=/tmp \
-  --localstatedir=/tmp \
-  --without-cvs \
+  --enable-add-ons=no \
+  --enable-obsolete-rpc \
   --disable-profile \
-  --without-gd \
   --disable-debug \
   --disable-sanity-checks \
-  --enable-add-ons=no \
-  --disable-werror \
-  --with-fp \
-  --enable-obsolete-rpc \
-  --with-headers=/opt/sysroot/usr/include
+  --disable-static \
+  --disable-werror
 
 make -j$(nproc)
 make install DESTDIR=/opt/sysroot
@@ -109,6 +110,7 @@ cd binutils-2.32
   --disable-multilib \
   --disable-sim \
   --disable-gdb \
+  --disable-static \
   --enable-ld=default \
   --enable-gold=yes \
   --enable-threads \
@@ -126,6 +128,13 @@ cd gcc-8.3.0
 mkdir build
 cd build
 
+#--enable-gold
+#--enable-long-long
+#--disable-libquadmath \
+#--disable-libquadmath-support \
+#--disable-libsanitizer \
+#--disable-libmpx \
+
 ../configure \
   --host=arm-linux-gnueabihf \
   --target=arm-linux-gnueabihf \
@@ -134,18 +143,12 @@ cd build
   --with-float=hard \
   --datarootdir=/tmp \
   --enable-threads=posix \
-  --enable-gold \
-  --enable-long-long \
   --enable-languages=c,c++ \
   --enable-__cxa_atexit \
   --disable-libmudflap \
   --disable-libssp \
   --disable-libgomp \
   --disable-libstdcxx-pch \
-  --disable-libquadmath \
-  --disable-libquadmath-support \
-  --disable-libsanitizer \
-  --disable-libmpx \
   --disable-nls \
   --disable-multilib \
   --disable-static
