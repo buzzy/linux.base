@@ -133,7 +133,6 @@ cd build
   --with-sysroot=/ \
   --with-float=hard \
   --datarootdir=/tmp \
-  --enable-shared \
   --enable-lto \
   --enable-threads=posix \
   --enable-target-optspace \
@@ -141,7 +140,6 @@ cd build
   --enable-gold \
   --enable-long-long \
   --enable-languages=c,c++ \
-  --enable-__cxa_atexit \
   --enable-__cxa_atexit \
   --disable-libmudflap \
   --disable-libssp \
@@ -153,7 +151,6 @@ cd build
   --disable-libmpx \
   --disable-nls \
   --disable-multilib \
-  --disable-bootstrap \
   --disable-static
 
 make -j$(nproc)
