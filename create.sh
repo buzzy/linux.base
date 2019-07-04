@@ -153,6 +153,7 @@ cd build
   --disable-libmpx \
   --disable-nls \
   --disable-multilib \
+  --disable-bootstrap \
   --disable-static
 
 make -j$(nproc)
