@@ -71,12 +71,22 @@ cd build
   --prefix= \
   --includedir=/usr/include \
   --libexecdir=/usr/libexec \
-  --enable-kernel=3.18 \
+  --enable-kernel=3.18.0 \
   --enable-stack-protector=strong \
-  --disable-static \
   --enable-shared \
+  --with-__thread \
+  --with-tls \
   --datarootdir=/tmp \
   --localstatedir=/tmp \
+  --without-cvs \
+  --disable-profile \
+  --without-gd \
+  --disable-debug \
+  --disable-sanity-checks \
+  --enable-add-ons=no \
+  --disable-werror \
+  --with-fp \
+  --enable-obsolete-rpc \
   --with-headers=/opt/sysroot/usr/include
 
 make -j$(nproc)
@@ -93,12 +103,17 @@ cd binutils-2.32
   --host=arm-linux-gnueabihf \
   --prefix=/opt/sysroot \
   --with-sysroot=/ \
+  --with-float=hard \
   --datarootdir=/tmp \
-  --disable-static \
-  --enable-shared \
+  --disable-werror \
   --disable-multilib \
-  --disable-nls
-
+  --disable-sim \
+  --disable-gdb \
+  --enable-ld=default \
+  --enable-gold=yes \
+  --enable-threads \
+  --enable-plugins
+  
 make tooldir=/opt/sysroot -j$(nproc)
 make tooldir=/opt/sysroot install
 
@@ -116,25 +131,32 @@ cd build
   --target=arm-linux-gnueabihf \
   --prefix=/opt/sysroot/usr \
   --with-sysroot=/ \
+  --with-float=hard \
   --datarootdir=/tmp \
   --enable-shared \
-  --enable-threads \
+  --enable-lto \
+  --enable-threads=posix \
+  --enable-target-optspace \
+  --enable-plugin \
+  --enable-gold \
+  --enable-long-long \
+  --enable-languages=c,c++ \
+  --enable-__cxa_atexit \
+  --enable-__cxa_atexit \
   --disable-libmudflap \
   --disable-libssp \
   --disable-libgomp \
   --disable-libstdcxx-pch \
-  --with-gnu-as \
-  --with-gnu-ld \
-  --enable-languages=c,c++ \
-  --enable-symvers=gnu \
-  --enable-__cxa_atexit \
-  --enable-c99 \
+  --disable-libquadmath \
+  --disable-libquadmath-support \
+  --disable-libsanitizer \
+  --disable-libmpx \
   --disable-nls \
   --disable-multilib \
   --disable-static
 
 make -j$(nproc)
-cp /opt/sysroot/usr/lib/libc.so.6 /lib
-cp /opt/sysroot/usr/lib/libc_nonshared.a /lib
-cp /opt/sysroot/usr/lib/ld-linux-armhf.so.3 /lib
+#cp /opt/sysroot/usr/lib/libc.so.6 /lib
+#cp /opt/sysroot/usr/lib/libc_nonshared.a /lib
+#cp /opt/sysroot/usr/lib/ld-linux-armhf.so.3 /lib
 make install
