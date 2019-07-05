@@ -130,10 +130,6 @@ cd build
 
 #--enable-gold
 #--enable-long-long
-#--disable-libquadmath \
-#--disable-libquadmath-support \
-#--disable-libsanitizer \
-#--disable-libmpx \
 
 ../configure \
   --host=arm-linux-gnueabihf \
@@ -151,6 +147,10 @@ cd build
   --disable-libstdcxx-pch \
   --disable-nls \
   --disable-multilib \
+  --disable-libquadmath \
+  --disable-libquadmath-support \
+  --disable-libsanitizer \
+  --disable-libmpx \
   --disable-static
 
 make -j$(nproc)
