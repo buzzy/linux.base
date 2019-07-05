@@ -1,6 +1,3 @@
-[paths]
-prefix = '/opt/test'
-
 [host_machine]
 system = 'linux'
 cpu_family = 'arm'
@@ -23,3 +20,4 @@ alignment_void* = 4
 alignment_double = 4
 
 has_function_printf = true
+sys_root = '/some/path'
