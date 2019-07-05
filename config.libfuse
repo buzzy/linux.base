@@ -1,0 +1,25 @@
+[paths]
+prefix = '/opt/test'
+
+[host_machine]
+system = 'linux'
+cpu_family = 'arm'
+cpu = 'arm7hl'
+endian = 'little'
+
+[binaries]
+c = '/usr/bin/arm-linux-gnueabihf-gcc'
+cpp = '/usr/bin/arm-linux-gnueabihf-g++'
+ar = '/usr/arm-linux-gnueabihf/bin/ar'
+strip = '/usr/arm-linux-gnueabihf/bin/strip'
+
+[properties]
+sizeof_int = 4
+sizeof_wchar_t = 4
+sizeof_void* = 4
+
+alignment_char = 1
+alignment_void* = 4
+alignment_double = 4
+
+has_function_printf = true
