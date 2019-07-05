@@ -11,10 +11,9 @@ cd fuse-3.6.1
 sed -i '/^udev/,$ s/^/#/' util/meson.build
 mkdir build
 cd build
-#save the config file (libfuse.config)
-meson --cross-file libfuse.config
+meson --cross-file /opt/linux.base/config.libfuse
 ninja
-
+njnja install
 
 #exFAT
 cd /opt
