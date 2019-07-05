@@ -128,7 +128,6 @@ cd gcc-8.3.0
 mkdir build
 cd build
 
-
 ../configure \
   --host=arm-linux-gnueabihf \
   --target=arm-linux-gnueabihf \
@@ -154,7 +153,4 @@ cd build
   --disable-static
 
 make -j$(nproc)
-#cp /opt/sysroot/usr/lib/libc.so.6 /lib
-#cp /opt/sysroot/usr/lib/libc_nonshared.a /lib
-#cp /opt/sysroot/usr/lib/ld-linux-armhf.so.3 /lib
 make install
