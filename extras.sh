@@ -2,10 +2,22 @@
 set -e
 set -x
 
-#PREPARE
+#libfuse
+apt-get -y install meson
 cd /opt
+wget https://github.com/libfuse/libfuse/releases/download/fuse-3.6.1/fuse-3.6.1.tar.xz
+tar xfv fuse-3.6.1.tar.xz
+cd fuse-3.6.1
+sed -i '/^udev/,$ s/^/#/' util/meson.build
+mkdir build
+cd build
+#save the config file (libfuse.config)
+meson --cross-file libfuse.config
+ninja
+
 
 #exFAT
+cd /opt
 apt-get -y install pkg-config libfuse-dev
 wget https://github.com/relan/exfat/releases/download/v1.3.0/fuse-exfat-1.3.0.tar.gz
 tar xfv fuse-exfat-1.3.0.tar.gz
