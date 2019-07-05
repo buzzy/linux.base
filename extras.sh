@@ -9,7 +9,7 @@ tar xfv fuse-2.9.9.tar.gz
 cd fuse-2.9.9
 
 ./configure \
-  CFLAGS="-O2 --sysroot=/opt/sysroot"
+  CFLAGS="-O2 --sysroot=/opt/sysroot" \
   --prefix=/opt/sysroot/usr \
   --host=arm-linux-gnueabihf \
   --with-pkgconfigdir=/tmp \
