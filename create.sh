@@ -128,8 +128,6 @@ cd gcc-8.3.0
 mkdir build
 cd build
 
-#--enable-gold
-#--enable-long-long
 
 ../configure \
   --host=arm-linux-gnueabihf \
@@ -151,6 +149,8 @@ cd build
   --disable-libquadmath-support \
   --disable-libsanitizer \
   --disable-libmpx \
+  --enable-gold \
+  --enable-long-long \
   --disable-static
 
 make -j$(nproc)
