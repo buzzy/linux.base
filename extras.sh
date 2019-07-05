@@ -15,7 +15,7 @@ cd fuse-2.9.9
   --datarootdir=/tmp \
   --disable-static
   
-make -j$(nproc)
+make -j$(nproc) CFLAGS="--sysroot=/opt/sysroot"
 make install
 
 #libfuse 3
@@ -43,5 +43,5 @@ wget https://github.com/relan/exfat/releases/download/v1.3.0/fuse-exfat-1.3.0.ta
 tar xfv fuse-exfat-1.3.0.tar.gz
 cd fuse-exfat-1.3.0
 ./configure --prefix=/opt/sysroot --host=arm-linux-gnueabihf --datarootdir=/tmp
-LDFLAGS="-L/opt/sysroot/usr/lib" CFLAGS="-I/opt/sysroot/usr/include" make -j$(nproc)
 make install
+make -j$(nproc) CFLAGS="--sysroot=/opt/sysroot"
