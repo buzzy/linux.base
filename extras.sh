@@ -10,13 +10,15 @@ cd fuse-2.9.9
 
 ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
-  --prefix=/opt/sysroot/usr \
+  --prefix=/usr \
   --host=arm-linux-gnueabihf \
   --datarootdir=/tmp \
   --disable-static
   
 make -j$(nproc) 
-make install
+make DESTDIR=/tmp/libfuse2 install
+mv /tmp/libfuse2/sbin /opt/sysroot/usr
+mv /tmp/libfuse2/usr /opt/sysroot
 
 #libfuse 3
 apt-get -y install meson
@@ -27,18 +29,19 @@ cd fuse-3.6.1
 sed -i '/^udev/,$ s/^/#/' util/meson.build
 mkdir build
 cd build
-meson --prefix=/tmp/libfuse --cross-file /opt/linux.base/config.libfuse
+meson --prefix /usr --cross-file /opt/linux.base/config.libfuse
 ninja
-ninja install
-mv -vf /tmp/libfuse/lib/x86_64-linux-gnu/libfuse3.so.3* /opt/sysroot/usr/lib
+DESTDIR=/tmp/libfuse3 ninja install
+mv -vf /tmp/libfuse3/lib/x86_64-linux-gnu/libfuse3.so.3* /opt/sysroot/usr/lib
 ln -s libfuse3.so.3.6.1 /opt/sysroot/usr/lib/libfuse3.so
-mv /tmp/libfuse/bin/fusermount3 /opt/sysroot/usr/bin
-mv /tmp/libfuse/sbin/mount.fuse3 /opt/sysroot/usr/sbin
-mv /tmp/libfuse/include/fuse3 /opt/sysroot/usr/include
+mv /tmp/libfuse3/bin/fusermount3 /opt/sysroot/usr/bin
+mv /tmp/libfuse3/sbin/mount.fuse3 /opt/sysroot/usr/sbin
+mv /tmp/libfuse3/include/fuse3 /opt/sysroot/usr/include
 
 #exFAT
 cd /opt
-apt-get -y install pkg-config libfuse-dev
+#apt-get -y install pkg-config libfuse-dev
+apt-get -y install pkg-config
 wget https://github.com/relan/exfat/releases/download/v1.3.0/fuse-exfat-1.3.0.tar.gz
 tar xfv fuse-exfat-1.3.0.tar.gz
 cd fuse-exfat-1.3.0
