@@ -76,8 +76,9 @@ make -j$(nproc)
 make install
 
 #iw (tools for wifi)
-#cd /opt
-#wget https://www.kernel.org/pub/software/network/iw/iw-5.0.1.tar.xz
-#tar xfv iw-5.0.1.tar.xz
-#cd iw-5.0.1
-#make CFLAGS="-O2 -s" CC=arm-linux-gnueabihf-gcc -j$(nproc)
+cd /opt
+wget https://www.kernel.org/pub/software/network/iw/iw-5.0.1.tar.xz
+tar xfv iw-5.0.1.tar.xz
+cd iw-5.0.1
+CC=arm-linux-gnueabihf-gcc PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig make CFLAGS="--sysroot=/opt/sysroot -O2 -s -I/opt/sysroot/usr/include/libnl3" -j$(nproc)
+
