@@ -12,7 +12,6 @@ cd fuse-2.9.9
   CFLAGS="-O2 --sysroot=/opt/sysroot" \
   --prefix=/opt/sysroot/usr \
   --host=arm-linux-gnueabihf \
-  --with-pkgconfigdir=/tmp \
   --datarootdir=/tmp \
   --disable-static
   
@@ -72,8 +71,13 @@ cd libnl-3.4.0
   --sysconfdir=/opt/sysroot/etc \
   --disable-cli \
   --datarootdir=/tmp \
-  --with-pkgconfigdir=/tmp \
   --disable-static
 make -j$(nproc)
+make install
 
-
+#iw (tools for wifi)
+#cd /opt
+#wget https://www.kernel.org/pub/software/network/iw/iw-5.0.1.tar.xz
+#tar xfv iw-5.0.1.tar.xz
+#cd iw-5.0.1
+#make CC=arm-linux-gnueabihf-gcc -j$(nproc)
