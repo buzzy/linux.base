@@ -53,5 +53,5 @@ wget https://hewlettpackard.github.io/wireless-tools/wireless_tools.29.tar.gz
 tar xfv wireless_tools.29.tar.gz
 cd wireless_tools.29
 patch -Np1 -i /opt/linux.base/patches/wireless_tools-29-fix_iwlist_scanning-1.patch
-make -j$(nproc)
+make CC=arm-linux-gnueabihf-gcc -j$(nproc)
 make PREFIX=/opt/sysroot/usr INSTALL_MAN=/tmp install
