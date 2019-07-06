@@ -32,6 +32,7 @@ cd build
 meson --prefix /usr --cross-file /opt/linux.base/config.libfuse
 ninja
 DESTDIR=/tmp/libfuse3 ninja install
+##### FIX THIS ONE!! LIBDIR IS WRONG!!!
 mv -vf /tmp/libfuse3/lib/x86_64-linux-gnu/libfuse3.so.3* /opt/sysroot/usr/lib
 ln -s libfuse3.so.3.6.1 /opt/sysroot/usr/lib/libfuse3.so
 mv /tmp/libfuse3/bin/fusermount3 /opt/sysroot/usr/bin
