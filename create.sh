@@ -157,3 +157,4 @@ cd build
 
 make -j$(nproc)
 make install
+ln -s /opt/sysroot/usr/bin/arm-linux-gnueabihf-gcc cc
