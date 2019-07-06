@@ -132,10 +132,10 @@ cd pkg-config-0.29.2
   --disable-host-tool \
   --mandir=/tmp \
   --docdir=/tmp \
-  glib_cv_stack_grows=no \
+  glib_cv_stack_grows=yes \
   glib_cv_uscore=no \
-  ac_cv_func_posix_getpwuid_r=no \
-  ac_cv_func_posix_getgrgid_r=no
+  ac_cv_func_posix_getpwuid_r=yes \
+  ac_cv_func_posix_getgrgid_r=yes
 make -j$(nproc)
 make install
 
