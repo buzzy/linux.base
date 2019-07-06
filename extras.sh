@@ -104,6 +104,41 @@ sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c
 make
 make install
 
+#m4
+cd /opt
+wget https://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz
+tar xfv m4-1.4.18.tar.xz
+cd m4-1.4.18
+sed -i 's/IO_ftrylockfile/IO_EOF_SEEN/' lib/*.c
+echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot/usr \
+  --datarootdir=/tmp
+make -j$(nproc)
+make install
+
+#pkg-config
+cd /opt
+wget https://pkgconfig.freedesktop.org/releases/pkg-config-0.29.2.tar.gz
+tar xfv pkg-config-0.29.2.tar.gz
+cd pkg-config-0.29.2
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot/usr \
+  --with-internal-glib \
+  --disable-host-tool \
+  --mandir=/tmp \
+  --docdir=/tmp \
+  glib_cv_stack_grows=no \
+  glib_cv_uscore=no \
+  ac_cv_func_posix_getpwuid_r=no \
+  ac_cv_func_posix_getgrgid_r=no
+make -j$(nproc)
+make install
+
 #libnl (netlink)
 cd /opt
 wget https://github.com/thom311/libnl/releases/download/libnl3_4_0/libnl-3.4.0.tar.gz
