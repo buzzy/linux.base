@@ -104,7 +104,7 @@ cd binutils-2.32
 ./configure \
   CFLAGS="-O2" \
   --host=arm-linux-gnueabihf \
-  --prefix=/opt/sysroot \
+  --prefix=/opt/sysroot/usr \
   --with-sysroot=/ \
   --with-float=hard \
   --datarootdir=/tmp \
@@ -118,8 +118,8 @@ cd binutils-2.32
   --enable-threads \
   --enable-plugins
   
-make tooldir=/opt/sysroot -j$(nproc)
-make tooldir=/opt/sysroot install
+make tooldir=/opt/sysroot/usr -j$(nproc)
+make tooldir=/opt/sysroot/usr install
 
 #GCC
 cd /opt
