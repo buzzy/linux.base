@@ -46,3 +46,12 @@ cd fuse-exfat-1.3.0
 ./configure CFLAGS="-O2 --sysroot=/opt/sysroot" --prefix=/opt/sysroot --host=arm-linux-gnueabihf --datarootdir=/tmp
 make -j$(nproc)
 make install
+
+#wireless-tools
+cd /opt
+wget https://hewlettpackard.github.io/wireless-tools/wireless_tools.29.tar.gz
+tar xfv wireless_tools.29.tar.gz
+cd wireless_tools.29
+patch -Np1 -i /opt/linux.base/patches/wireless_tools-29-fix_iwlist_scanning-1.patch
+make -j$(nproc)
+make PREFIX=/opt/sysroot/usr INSTALL_MAN=/tmp install
