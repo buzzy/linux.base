@@ -43,7 +43,11 @@ apt-get -y install pkg-config libfuse-dev
 wget https://github.com/relan/exfat/releases/download/v1.3.0/fuse-exfat-1.3.0.tar.gz
 tar xfv fuse-exfat-1.3.0.tar.gz
 cd fuse-exfat-1.3.0
-./configure CFLAGS="-O2 --sysroot=/opt/sysroot" --prefix=/opt/sysroot --host=arm-linux-gnueabihf --datarootdir=/tmp
+./configure \
+  CFLAGS="-O2 --sysroot=/opt/sysroot" \
+  --prefix=/opt/sysroot \
+  --host=arm-linux-gnueabihf \
+  --datarootdir=/tmp
 make -j$(nproc)
 make install
 
@@ -55,3 +59,21 @@ make install
 #patch -Np1 -i /opt/linux.base/patches/wireless_tools-29-fix_iwlist_scanning-1.patch
 #make CC=arm-linux-gnueabihf-gcc -j$(nproc)
 #make PREFIX=/opt/sysroot/usr INSTALL_MAN=/tmp install
+
+#libnl (netlink)
+cd /opt
+wget https://github.com/thom311/libnl/releases/download/libnl3_4_0/libnl-3.4.0.tar.gz
+tar xfv libnl-3.4.0.tar.gz
+cd libnl-3.4.0
+./configure \
+  CFLAGS="-O2 --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot/usr \
+  --sysconfdir=/opt/sysroot/etc \
+  --disable-cli \
+  --datarootdir=/tmp \
+  --with-pkgconfigdir=/tmp \
+  --disable-static
+make -j$(nproc)
+
+
