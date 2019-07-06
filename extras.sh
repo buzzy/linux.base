@@ -59,6 +59,37 @@ make install
 #make CC=arm-linux-gnueabihf-gcc -j$(nproc)
 #make PREFIX=/opt/sysroot/usr INSTALL_MAN=/tmp install
 
+#bison
+cd /opt
+wget http://ftp.twaren.net/Unix/GNU/gnu/bison/bison-3.4.1.tar.xz
+tar xfv bison-3.4.1.tar.xz
+cd bison-3.4.1
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot/usr \
+  --infodir=/tmp \
+  --localedir=/tmp \
+  --mandir=/tmp \
+  --docdir=/tmp
+make -j1
+make install
+
+#flex
+cd /opt
+wget https://github.com/westes/flex/files/981163/flex-2.6.4.tar.gz
+tar xfv flex-2.6.4.tar.gz
+cd flex-2.6.4
+sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot/usr \
+  --datarootdir=/tmp \
+  --disable-static
+make -j$(nproc)
+make install
+
 #libnl (netlink)
 cd /opt
 wget https://github.com/thom311/libnl/releases/download/libnl3_4_0/libnl-3.4.0.tar.gz
