@@ -26,10 +26,10 @@ cat /opt/linux.base/config.chromeos /opt/linux.base/config.chromeos.extra > .con
 cp include/linux/compiler-gcc5.h include/linux/compiler-gcc8.h
 make oldconfig
 make prepare
-make CFLAGS="-O2" -j$(nproc) Image
-make CFLAGS="-O2" -j$(nproc) modules
+make CFLAGS="-O2 -s" -j$(nproc) Image
+make CFLAGS="-O2 -s" -j$(nproc) modules
 make dtbs
-make CFLAGS="-O2" -j$(nproc)
+make CFLAGS="-O2 -s" -j$(nproc)
 make INSTALL_MOD_PATH="/opt/sysroot" modules_install
 make INSTALL_DTBS_PATH="/opt/sysroot/boot/dtbs" dtbs_install
 rm -f /opt/sysroot/lib/modules/*/{source,build}
@@ -54,7 +54,7 @@ wget https://busybox.net/downloads/busybox-1.30.1.tar.bz2
 tar xfv busybox-1.30.1.tar.bz2
 cd busybox-1.30.1
 cp /opt/linux.base/config.busybox .config
-make CFLAGS="-O2" -j$(nproc)
+make CFLAGS="-O2 -s" -j$(nproc)
 make install
 
 #GLIBC
@@ -67,7 +67,7 @@ cd build
 
 #FIND OUT WHY IT STILL BUILDS STATIC LIBS!!!
 ../configure \
-  CFLAGS="-O2" \
+  CFLAGS="-O2 -s" \
   --host=arm-linux-gnueabihf \
   --prefix= \
   --includedir=/usr/include \
@@ -102,7 +102,7 @@ tar xfv binutils-2.32.tar.xz
 cd binutils-2.32
 
 ./configure \
-  CFLAGS="-O2" \
+  CFLAGS="-O2 -s" \
   --host=arm-linux-gnueabihf \
   --prefix=/opt/sysroot/usr \
   --with-sysroot=/ \
@@ -131,7 +131,7 @@ mkdir build
 cd build
 
 ../configure \
-  CFLAGS="-O2" \
+  CFLAGS="-O2 -s" \
   --host=arm-linux-gnueabihf \
   --target=arm-linux-gnueabihf \
   --prefix=/opt/sysroot/usr \
