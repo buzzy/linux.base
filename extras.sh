@@ -90,6 +90,20 @@ sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
 make -j$(nproc)
 make install
 
+#make
+cd /opt
+wget http://ftp.twaren.net/Unix/GNU/gnu/make/make-4.2.1.tar.gz
+tar xfv make-4.2.1.tar.gz
+cd make-4.2.1
+sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/opt/sysroot/usr \
+  --datarootdir=/tmp
+make
+make install
+
 #libnl (netlink)
 cd /opt
 wget https://github.com/thom311/libnl/releases/download/libnl3_4_0/libnl-3.4.0.tar.gz
