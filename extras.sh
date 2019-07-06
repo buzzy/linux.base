@@ -47,11 +47,11 @@ cd fuse-exfat-1.3.0
 make -j$(nproc)
 make install
 
-#wireless-tools
-cd /opt
-wget https://hewlettpackard.github.io/wireless-tools/wireless_tools.29.tar.gz
-tar xfv wireless_tools.29.tar.gz
-cd wireless_tools.29
-patch -Np1 -i /opt/linux.base/patches/wireless_tools-29-fix_iwlist_scanning-1.patch
-make CC=arm-linux-gnueabihf-gcc -j$(nproc)
-make PREFIX=/opt/sysroot/usr INSTALL_MAN=/tmp install
+#wireless-tools DEPRECATED!
+#cd /opt
+#wget https://hewlettpackard.github.io/wireless-tools/wireless_tools.29.tar.gz
+#tar xfv wireless_tools.29.tar.gz
+#cd wireless_tools.29
+#patch -Np1 -i /opt/linux.base/patches/wireless_tools-29-fix_iwlist_scanning-1.patch
+#make CC=arm-linux-gnueabihf-gcc -j$(nproc)
+#make PREFIX=/opt/sysroot/usr INSTALL_MAN=/tmp install
