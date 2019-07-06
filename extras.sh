@@ -67,13 +67,16 @@ cd bison-3.4.1
 ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
   --host=arm-linux-gnueabihf \
-  --prefix=/opt/sysroot/usr \
+  --prefix=/usr \
+  --disable-yacc \
+  --disable-nls \
   --infodir=/tmp \
   --localedir=/tmp \
   --mandir=/tmp \
   --docdir=/tmp
 make -j1
-make install
+make DESTDIR=/opt/sysroot install
+rm -fr /opt/sysroot/tmp/*
 
 #flex
 cd /opt
