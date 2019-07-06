@@ -152,6 +152,7 @@ cd libnl-3.4.0
   --disable-cli \
   --datarootdir=/tmp \
   --disable-static
+#BISON_PKGDATADIR=/usr/share/binson make -j$(nproc)
 make -j$(nproc)
 make install
 
