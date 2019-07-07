@@ -39,18 +39,17 @@ rm -rf /tmp/libfuse3
 
 #exFAT
 cd /opt
-#apt-get -y install pkg-config libfuse-dev
 apt-get -y install pkg-config
 wget https://github.com/relan/exfat/releases/download/v1.3.0/fuse-exfat-1.3.0.tar.gz
 tar xfv fuse-exfat-1.3.0.tar.gz
 cd fuse-exfat-1.3.0
-./configure \
+FUSE_CFLAGS="-I/opt/sysroot/usr/include/fuse -D_FILE_OFFSET_BITS=64" FUSE_LIBS="-L/opt/sysroot/usr/lib -lfuse -pthread" ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
-  --prefix=/opt/sysroot \
-  --host=arm-linux-gnueabihf \
-  --datarootdir=/tmp
+  --host=arm-linux-gnueabihf
 make -j$(nproc)
-make install
+make DESTDIR=/tmp/exfat install
+cp -rv /tmp/exfat/usr/local/sbin /opt/sysroot/usr
+rm -rf /tmp/exfat
 
 #wireless-tools DEPRECATED!
 #cd /opt
@@ -89,11 +88,12 @@ sed -i "/math.h/a #include <malloc.h>" src/flexdef.h
 ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
   --host=arm-linux-gnueabihf \
-  --prefix=/opt/sysroot/usr \
+  --prefix=/usr \
   --datarootdir=/tmp \
   --disable-static
 make -j$(nproc)
-make install
+make DESTDIR=/opt/sysroot install
+rm -fr /opt/sysroot/tmp/*
 
 #make
 cd /opt
@@ -104,10 +104,11 @@ sed -i '211,217 d; 219,229 d; 232 d' glob/glob.c
 ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
   --host=arm-linux-gnueabihf \
-  --prefix=/opt/sysroot/usr \
+  --prefix=/usr \
   --datarootdir=/tmp
-make
-make install
+make -j$(nproc)
+make DESTDIR=/opt/sysroot install
+rm -fr /opt/sysroot/tmp/*
 
 #m4
 cd /opt
@@ -119,10 +120,11 @@ echo "#define _IO_IN_BACKUP 0x100" >> lib/stdio-impl.h
 ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
   --host=arm-linux-gnueabihf \
-  --prefix=/opt/sysroot/usr \
+  --prefix=/usr \
   --datarootdir=/tmp
 make -j$(nproc)
-make install
+make DESTDIR=/opt/sysroot install
+rm -fr /opt/sysroot/tmp/*
 
 #pkg-config
 cd /opt
@@ -132,7 +134,7 @@ cd pkg-config-0.29.2
 ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
   --host=arm-linux-gnueabihf \
-  --prefix=/opt/sysroot/usr \
+  --prefix=/usr \
   --with-internal-glib \
   --disable-host-tool \
   --mandir=/tmp \
@@ -142,7 +144,8 @@ cd pkg-config-0.29.2
   ac_cv_func_posix_getpwuid_r=yes \
   ac_cv_func_posix_getgrgid_r=yes
 make -j$(nproc)
-make install
+make DESTDIR=/opt/sysroot install
+rm -fr /opt/sysroot/tmp/*
 
 #libnl (netlink)
 cd /opt
@@ -152,19 +155,23 @@ cd libnl-3.4.0
 ./configure \
   CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
   --host=arm-linux-gnueabihf \
-  --prefix=/opt/sysroot/usr \
-  --sysconfdir=/opt/sysroot/etc \
+  --prefix=/usr \
+  --sysconfdir=/etc \
   --disable-cli \
   --datarootdir=/tmp \
   --disable-static
-#BISON_PKGDATADIR=/usr/share/binson make -j$(nproc)
 make -j$(nproc)
-make install
+make DESTDIR=/opt/sysroot install
+rm -fr /opt/sysroot/tmp/*
 
 #iw (tools for wifi)
 cd /opt
 wget https://www.kernel.org/pub/software/network/iw/iw-5.0.1.tar.xz
 tar xfv iw-5.0.1.tar.xz
 cd iw-5.0.1
-CC=arm-linux-gnueabihf-gcc PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig make CFLAGS="--sysroot=/opt/sysroot -O2 -s -I/opt/sysroot/usr/include/libnl3" -j$(nproc)
+CC="arm-linux-gnueabihf-gcc --sysroot=/opt/sysroot" \
+PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig \
+CFLAGS="--sysroot=/opt/sysroot -O2 -s -I/opt/sysroot/usr/include/libnl3" \
+LDFLAGS="-L/opt/sysroot/usr/lib -lnl-3" \
+make
 
