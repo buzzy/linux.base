@@ -278,9 +278,47 @@ PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig make DESTDIR=/tmp/iw install
 cp -rv /tmp/iw/usr/sbin /opt/sysroot/usr
 rm -fr /tmp/iw
 
+#zlib
+cd /opt
+wget https://zlib.net/zlib-1.2.11.tar.gz
+tar xfv zlib-1.2.11.tar.gz
+cd zlib-1.2.11
+./configure \
+  --prefix=/usr \
+  --shared
+make CC="arm-linux-gnueabihf-gcc --sysroot=/opt/sysroot" CFLAGS="-O2 -s" LDSHARED="arm-linux-gnueabihf-gcc -shared -Wl,-soname,libz.so.1,--version-script,zlib.map"
+make prefix=/usr DESTDIR=/tmp/zlib install
+cp -rv /tmp/zlib/usr/include /opt/sysroot/usr
+cp -rv /tmp/zlib/usr/lib /opt/sysroot/usr
+rm /opt/sysroot/usr/lib/libz.a
+rm -fr /tmp/libz
+
+#openssl
+cd /opt
+wget https://www.openssl.org/source/openssl-1.1.1c.tar.gz
+tar xfv openssl-1.1.1c.tar.gz
+cd openssl-1.1.1c
+./Configure \
+  -DL_ENDIAN \
+  shared \
+  zlib-dynamic \
+  --prefix=/usr \
+  --openssldir=/etc/ssl \
+  --libdir=lib \
+  linux-armv4
+make \
+CC="arm-linux-gnueabihf-gcc --sysroot=/opt/sysroot" \
+PROCESSOR=ARM
+
 #wpa_supplicant
 cd /opt
 wget https://w1.fi/releases/wpa_supplicant-2.8.tar.gz
 tar xfv wpa_supplicant-2.8.tar.gz
-cd wpa_supplicant-2.8
+cd wpa_supplicant-2.8/wpa_supplicant
+cp /opt/linux.base/config.wpa_supplicant .config
+CC="arm-linux-gnueabihf-gcc --sysroot=/opt/sysroot" \
+PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig \
+CFLAGS="--sysroot=/opt/sysroot -O2 -s -I/opt/sysroot/usr/include/libnl3" \
+LDFLAGS="-L/opt/sysroot/usr/lib" \
+make BINDIR=/sbin LIBDIR=/lib
 
