@@ -277,3 +277,10 @@ make
 PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig make DESTDIR=/tmp/iw install
 cp -rv /tmp/iw/usr/sbin /opt/sysroot/usr
 rm -fr /tmp/iw
+
+#wpa_supplicant
+cd /opt
+wget https://w1.fi/releases/wpa_supplicant-2.8.tar.gz
+tar xfv wpa_supplicant-2.8.tar.gz
+cd wpa_supplicant-2.8
+
