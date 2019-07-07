@@ -17,8 +17,9 @@ cd fuse-2.9.9
   
 make -j$(nproc) 
 make DESTDIR=/tmp/libfuse2 install
-mv /tmp/libfuse2/sbin /opt/sysroot/usr
-mv /tmp/libfuse2/usr /opt/sysroot
+cp -rv /tmp/libfuse2/sbin /opt/sysroot/usr
+cp -rv /tmp/libfuse2/usr /opt/sysroot
+rm -rf /tmp/libfuse2
 
 #libfuse 3
 apt-get -y install meson
@@ -29,15 +30,12 @@ cd fuse-3.6.1
 sed -i '/^udev/,$ s/^/#/' util/meson.build
 mkdir build
 cd build
-meson --prefix /usr --cross-file /opt/linux.base/config.libfuse
+meson --prefix /usr --libdir lib --cross-file /opt/linux.base/config.libfuse
 ninja
 DESTDIR=/tmp/libfuse3 ninja install
-##### FIX THIS ONE!! LIBDIR IS WRONG!!!
-mv -vf /tmp/libfuse3/lib/x86_64-linux-gnu/libfuse3.so.3* /opt/sysroot/usr/lib
-ln -s libfuse3.so.3.6.1 /opt/sysroot/usr/lib/libfuse3.so
-mv /tmp/libfuse3/bin/fusermount3 /opt/sysroot/usr/bin
-mv /tmp/libfuse3/sbin/mount.fuse3 /opt/sysroot/usr/sbin
-mv /tmp/libfuse3/include/fuse3 /opt/sysroot/usr/include
+rm -fr /tmp/libfuse3/share
+cp -rv /tmp/libfuse3/* /opt/sysroot
+rm -rf /tmp/libfuse3
 
 #exFAT
 cd /opt
