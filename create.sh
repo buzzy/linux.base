@@ -112,6 +112,7 @@ cd binutils-2.32
   --disable-multilib \
   --disable-sim \
   --disable-gdb \
+  --disable-nls \
   --disable-static \
   --enable-ld=default \
   --enable-gold=yes \
