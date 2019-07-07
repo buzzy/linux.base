@@ -309,6 +309,64 @@ cd openssl-1.1.1c
 make \
 CC="arm-linux-gnueabihf-gcc --sysroot=/opt/sysroot" \
 PROCESSOR=ARM
+make DESTDIR=/tmp/openssl install
+cp -rv /tmp/openssl/etc /opt/sysroot
+rm -rf /tmp/openssl/usr/share
+rm /tmp/openssl/usr/lib/libcrypto.a /tmp/openssl/usr/lib/libssl.a
+cp -rv /tmp/openssl/usr /opt/sysroot
+rm -fr /tmp/openssl
+
+#readline
+cd /opt
+wget https://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz
+tar xfv readline-6.3.tar.gz
+cd readline-6.3
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-001
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-002
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-003
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-004
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-005
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-006
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-007
+wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-008
+patch -p0 < readline63-001
+patch -p0 < readline63-002
+patch -p0 < readline63-003
+patch -p0 < readline63-004
+patch -p0 < readline63-005
+patch -p0 < readline63-006
+patch -p0 < readline63-007
+patch -p0 < readline63-008
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/usr \
+  --datarootdir=/tmp \
+  --enable-static=no \
+  bash_cv_wcwidth_broken=yes
+make -j$(nproc)
+make DESTDIR=/opt/sysroot install
+rm -rf /opt/sysroot/tmp/*
+
+#ncurses
+cd /opt
+wget https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.1.tar.gz
+tar xfv ncurses-6.1.tar.gz
+cd ncurses-6.1
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --prefix=/usr \
+  --with-shared \
+  --without-debug \
+  --disable-stripping \
+  --without-manpages \
+  --enable-static=no \
+  --without-ada
+make -j$(nproc)
+make DESTDIR=/opt/sysroot install
+unlink /opt/sysroot/usr/lib/libcurses.a  
+rm /opt/sysroot/usr/lib/{libform.a,libmenu.a,libncurses.a,libpanel.a,libncurses++.a}
 
 #wpa_supplicant
 cd /opt
@@ -321,4 +379,5 @@ PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig \
 CFLAGS="--sysroot=/opt/sysroot -O2 -s -I/opt/sysroot/usr/include/libnl3" \
 LDFLAGS="-L/opt/sysroot/usr/lib" \
 make BINDIR=/sbin LIBDIR=/lib
+install -v -m755 wpa_{cli,passphrase,supplicant} /opt/sysroot/usr/sbin/
 
