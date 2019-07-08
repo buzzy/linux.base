@@ -11,6 +11,7 @@ cp -rv /opt/linux.base/sysroot/* /opt/sysroot
 
 #KERNEL:
 cd /opt
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/linville/wireless-regdb.git
 ln -s /usr/bin/aarch64-linux-gnu-gcc-8 /usr/bin/aarch64-linux-gnu-gcc
 export ARCH=arm64
 export CROSS_COMPILE=aarch64-linux-gnu-
@@ -24,6 +25,7 @@ cd /opt/kernel
 patch -p1 < /opt/linux.base/log2.patch
 cat /opt/linux.base/config.chromeos /opt/linux.base/config.chromeos.extra > .config
 cp include/linux/compiler-gcc5.h include/linux/compiler-gcc8.h
+cp /opt/wireless-regdb/db.txt /opt/kernel/net/wireless
 make oldconfig
 make prepare
 make CFLAGS="-O2 -s" -j$(nproc) Image
