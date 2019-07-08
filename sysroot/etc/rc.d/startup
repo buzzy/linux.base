@@ -18,4 +18,4 @@ hostname -F /etc/hostname
 
 grep -h MODALIAS /sys/bus/*/devices/*/uevent 2> /dev/null | cut -d= -f2 | sort -u | xargs modprobe -abq 2> /dev/null
 
-wpa_supplicant -B -i mlan0 -D nl80811 -c /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_supplicant -B -i mlan0 -D nl80211 -c /etc/wpa_supplicant/wpa_supplicant.conf
