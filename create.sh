@@ -305,6 +305,7 @@ cd openssl-1.1.1c
   --prefix=/usr \
   --openssldir=/etc/ssl \
   --libdir=lib \
+  --no-ssl2 \
   linux-armv4
 make \
 CC="arm-linux-gnueabihf-gcc --sysroot=/opt/sysroot" \
