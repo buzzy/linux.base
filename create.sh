@@ -319,36 +319,36 @@ cp -rv /tmp/openssl/usr /opt/sysroot
 rm -fr /tmp/openssl
 
 #readline
-cd /opt
-wget https://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz
-tar xfv readline-6.3.tar.gz
-cd readline-6.3
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-001
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-002
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-003
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-004
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-005
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-006
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-007
-wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-008
-patch -p0 < readline63-001
-patch -p0 < readline63-002
-patch -p0 < readline63-003
-patch -p0 < readline63-004
-patch -p0 < readline63-005
-patch -p0 < readline63-006
-patch -p0 < readline63-007
-patch -p0 < readline63-008
-./configure \
-  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
-  --host=arm-linux-gnueabihf \
-  --prefix=/usr \
-  --datarootdir=/tmp \
-  --enable-static=no \
-  bash_cv_wcwidth_broken=yes
-make -j$(nproc)
-make DESTDIR=/opt/sysroot install
-rm -rf /opt/sysroot/tmp/*
+#cd /opt
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3.tar.gz
+#tar xfv readline-6.3.tar.gz
+#cd readline-6.3
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-001
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-002
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-003
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-004
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-005
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-006
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-007
+#wget https://ftp.gnu.org/gnu/readline/readline-6.3-patches/readline63-008
+#patch -p0 < readline63-001
+#patch -p0 < readline63-002
+#patch -p0 < readline63-003
+#patch -p0 < readline63-004
+#patch -p0 < readline63-005
+#patch -p0 < readline63-006
+#patch -p0 < readline63-007
+#patch -p0 < readline63-008
+#./configure \
+#  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+#  --host=arm-linux-gnueabihf \
+#  --prefix=/usr \
+#  --datarootdir=/tmp \
+#  --enable-static=no \
+#  bash_cv_wcwidth_broken=yes
+#make -j$(nproc)
+#make DESTDIR=/opt/sysroot install
+#rm -rf /opt/sysroot/tmp/*
 
 #ncurses
 cd /opt
@@ -375,7 +375,10 @@ cd /opt
 wget https://w1.fi/releases/wpa_supplicant-2.8.tar.gz
 tar xfv wpa_supplicant-2.8.tar.gz
 cd wpa_supplicant-2.8/wpa_supplicant
-cp /opt/linux.base/config.wpa_supplicant .config
+#cp /opt/linux.base/config.wpa_supplicant .config
+cp defconfig .config
+sed -i '/CONFIG_CTRL_IFACE_DBUS_NEW=y/d' .config
+sed -i '/CONFIG_CTRL_IFACE_DBUS_INTRO=y/d' .config
 CC="arm-linux-gnueabihf-gcc --sysroot=/opt/sysroot" \
 PKG_CONFIG_PATH=/opt/sysroot/lib/pkgconfig \
 CFLAGS="--sysroot=/opt/sysroot -O2 -s -I/opt/sysroot/usr/include/libnl3" \
