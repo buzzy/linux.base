@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ "$METHOD" == "manual" ] && [ "$PHASE" == "pre-up" ] && [ -n "$IF_WIRELESS" ]; then
+	IF_WPA_CONF="${IF_WPA_CONF:-/etc/wpa_supplicant/wpa_supplicant.conf}"
+	ip link set dev $IFACE up
+	wpa_supplicant -B -i $IFACE -s -c $IF_WPA_CONF -P /var/run/wpa_supplicant-$IFACE.pid
+	wpa_cli -i $IFACE -B -a /etc/wpa_supplicant/event_handler.sh
+fi

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+if [ "$PHASE" == "pre-down" ] && [ -f "/var/run/wpa_supplicant-$IFACE.pid" ]; then
+	kill $(cat /var/run/wpa_supplicant-$IFACE.pid)
+	ip link set dev $IFACE down
+fi
