@@ -18,6 +18,9 @@ syslogd -O /var/log/syslog
 #Start kernel logger
 klogd
 
+#Print system log to tty10 (ALT+F10)
+tail -f /var/log/syslog > /dev/tty10 &
+
 #Mount proc and sys filesystems
 mount -t proc none /proc
 mount -t sysfs none /sys
