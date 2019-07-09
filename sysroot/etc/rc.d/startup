@@ -9,14 +9,14 @@
 #echo /sbin/mdev > /proc/sys/kernel/hotplug
 #mdev -s
 
+hostname -F /etc/hostname
+
 syslogd -O /var/log/syslog
 
 mount -t proc none /proc
 mount -t sysfs none /sys
 
 rm -rf /tmp/*
-
-hostname -F /etc/hostname
 
 grep -h MODALIAS /sys/bus/*/devices/*/uevent 2> /dev/null | cut -d= -f2 | sort -u | xargs modprobe -abq 2> /dev/null
 
