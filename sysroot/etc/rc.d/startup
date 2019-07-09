@@ -22,8 +22,9 @@ klogd
 mount -t proc none /proc
 mount -t sysfs none /sys
 
-#Empty temp dir
+#Empty temp and run dirs
 rm -rf /tmp/*
+rm -rf /var/run/*
 
 #Load modules for auto-detected hardware
 grep -h MODALIAS /sys/bus/*/devices/*/uevent 2> /dev/null | cut -d= -f2 | sort -u | xargs modprobe -abq 2> /dev/null
