@@ -9,6 +9,9 @@
 #echo /sbin/mdev > /proc/sys/kernel/hotplug
 #mdev -s
 
+#Prevent kernel messages to console
+dmesg -n 1
+
 #Set hostname
 hostname -F /etc/hostname
 
