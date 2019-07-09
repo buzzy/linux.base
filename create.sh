@@ -386,3 +386,17 @@ LDFLAGS="-L/opt/sysroot/usr/lib" \
 make BINDIR=/sbin LIBDIR=/lib
 install -v -m755 wpa_{cli,passphrase,supplicant} /opt/sysroot/usr/sbin/
 
+#dhcpcd
+cd /opt
+wget https://roy.marples.name/downloads/dhcpcd/dhcpcd-7.2.3.tar.xz
+tar xfv dhcpcd-7.2.3.tar.xz
+cd dhcpcd-7.2.3
+./configure \
+  CFLAGS="-O2 -s --sysroot=/opt/sysroot" \
+  --host=arm-linux-gnueabihf \
+  --libexecdir=/usr/libexec/dhcpcd \
+  --mandir=/tmp \
+  --dbdir=/var/dhcpcd
+make -j$(nproc)
+make DESTDIR=/opt/sysroot install
+rm -fr /opt/sysroot/tmp/*
