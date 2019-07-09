@@ -1,4 +1,3 @@
 #!/bin/ash
 
-#Nothing here so far
-
+ifdown -a
