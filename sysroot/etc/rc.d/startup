@@ -9,6 +9,8 @@
 #echo /sbin/mdev > /proc/sys/kernel/hotplug
 #mdev -s
 
+syslogd -O /var/log/syslog
+
 mount -t proc none /proc
 mount -t sysfs none /sys
 
