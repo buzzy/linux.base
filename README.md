@@ -16,7 +16,7 @@ rsync -aAXv /opt/sysroot /dev/sda2
 
 ## CONFIGURE WIFI
 
-wpa_passphrase SSID PASSWOR >> /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_passphrase SSID PASSWORD >> /etc/wpa_supplicant/wpa_supplicant.conf
 
 ifdown mlan0
 
