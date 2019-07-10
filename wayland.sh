@@ -56,6 +56,12 @@ cp -rv /tmp/libxml/* /opt/sysroot
 rm -rf /tmp/libxml
 
 #wayland
+#  FFI_CFLAGS="-I/opt/sysroot/usr/include" \
+#  FFI_LIBS="-L/opt/sysroot/usr/lib" \
+#  EXPAT_CFLAGS="-I/opt/sysroot/usr/include" \
+#  EXPAT_LIBS="-L/opt/sysroot/usr/lib" \
+#  LIBXML_CFLAGS="-I/opt/sysroot/usr/include" \
+#  LIBXML_LIBS="-L/opt/sysroot/usr/lib" \
 cd /opt
 wget https://wayland.freedesktop.org/releases/wayland-1.17.0.tar.xz
 tar xfv wayland-1.17.0.tar.xz
