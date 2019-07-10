@@ -21,3 +21,9 @@ wpa_passphrase SSID PASSWORD >> /etc/wpa_supplicant/wpa_supplicant.conf
 ifdown mlan0
 
 ifup mlan0
+
+## SYSTEM LOGGER
+
+Press ALT+F10 to view real-time syslog.
+
+Press ALT+F1 to get back to regular console
