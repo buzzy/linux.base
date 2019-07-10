@@ -402,7 +402,9 @@ install -v -m755 wpa_{cli,passphrase,supplicant} /opt/sysroot/usr/sbin/
 #rm -fr /opt/sysroot/tmp/*
 
 #FINALIZE
-find /opt/sysroot -executable -type f | xargs arm-linux-gnueabihf-strip -s || true
+find /opt/sysroot/usr/bin -executable -type f | xargs arm-linux-gnueabihf-strip -s || true
+find /opt/sysroot/usr/sbin -executable -type f | xargs arm-linux-gnueabihf-strip -s || true
+find /opt/sysroot/usr/libexec -executable -type f | xargs arm-linux-gnueabihf-strip -s || true
 #find /opt/sysroot/usr/lib -type f | xargs arm-linux-gnueabihf-strip -s || true
 
 echo -n "Congratulations! If you can read this text, it means that your system is finished. You can safely ignore any errors above."
