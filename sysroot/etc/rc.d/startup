@@ -35,7 +35,8 @@ tail -f /var/log/syslog > /dev/tty10 &
 #Load modules for auto-detected hardware
 grep -h MODALIAS /sys/bus/*/devices/*/uevent 2> /dev/null | cut -d= -f2 | sort -u | xargs modprobe -abq 2> /dev/null
 
-#wpa_supplicant -B -i mlan0 -D nl80211 -c /etc/wpa_supplicant/wpa_supplicant.conf
+#Start cron daemon
+crond -c /etc/crond
 
 #Start all network interfaces
 ifup -a
