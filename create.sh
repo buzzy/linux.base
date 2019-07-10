@@ -403,3 +403,4 @@ install -v -m755 wpa_{cli,passphrase,supplicant} /opt/sysroot/usr/sbin/
 
 #FINALIZE
 find /opt/sysroot -executable -type f | xargs arm-linux-gnueabihf-strip -s || true
+find /opt/sysroot/usr/lib -type f | xargs arm-linux-gnueabihf-strip -s || true
