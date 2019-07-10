@@ -74,4 +74,4 @@ cd wayland-1.17.0
   --host=arm-linux-gnueabihf \
   --prefix=/usr \
   --disable-documentation
-make CFLAGS="--sysroot=-/opt/sysroot -I/opt/sysroot/usr/include -L/opt/sysroot/usr/lib" -j$(nproc)
+make CFLAGS="--sysroot=/opt/sysroot -I/opt/sysroot/usr/include -L/opt/sysroot/usr/lib" -j$(nproc)
