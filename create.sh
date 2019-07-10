@@ -161,7 +161,6 @@ cd build
 make -j$(nproc)
 make install
 ln -s /opt/sysroot/usr/bin/arm-linux-gnueabihf-gcc cc
-arm-linux-gnueabihf-strip -s /opt/sysroot/usr/libexec/gcc/arm-linux-gnueabihf/8.3.0/{cc1,cc1plus,collect2,lto1,lto-wrapper}
 
 #bison
 cd /opt
@@ -401,3 +400,6 @@ install -v -m755 wpa_{cli,passphrase,supplicant} /opt/sysroot/usr/sbin/
 #make -j$(nproc)
 #make DESTDIR=/opt/sysroot install
 #rm -fr /opt/sysroot/tmp/*
+
+#FINALIZE
+find /opt/sysroot -executable -type f | xargs arm-linux-gnueabihf-strip -s || true
