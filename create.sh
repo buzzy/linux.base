@@ -154,13 +154,14 @@ cd build
   --disable-libquadmath-support \
   --disable-libsanitizer \
   --disable-libmpx \
-  --enable-gold \
+  --disable-gold \
   --enable-long-long \
   --disable-static
 
 make -j$(nproc)
 make install
 ln -s /opt/sysroot/usr/bin/arm-linux-gnueabihf-gcc cc
+arm-linux-gnueabihf-strip -s /opt/sysroot/usr/libexec/gcc/arm-linux-gnueabihf/8.3.0/{cc1,cc1plus,collect2,lto1,lto-wrapper}
 
 #bison
 cd /opt
