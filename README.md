@@ -13,3 +13,11 @@ time bash linux.base/create.sh
 dd if=/opt/sysroot/boot/vmkernel.kpart /dev/sda1
 
 rsync -aAXv /opt/sysroot /dev/sda2
+
+## CONFIGURE WIFI
+
+wpa_passphrase SSID PASSWOR >> /etc/wpa_supplicant/wpa_supplicant.conf
+
+ifdown mlan0
+
+ifup mlan0
