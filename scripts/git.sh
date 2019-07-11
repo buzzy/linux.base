@@ -22,6 +22,7 @@ sh Configure \
   -Dpager="/usr/bin/less -isR" \
   -Duseshrplib \
   -Dusethreads
+make -j$(nproc)
 
 #help2man
 cd
