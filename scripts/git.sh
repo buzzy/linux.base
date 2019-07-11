@@ -14,6 +14,24 @@ wget https://github.com/p11-glue/p11-kit/releases/download/0.23.16.1/p11-kit-0.2
 cd
 wget https://github.com/djlucas/make-ca/releases/download/v1.4/make-ca-1.4.tar.xz
 
+#gettext
+cd
+wget https://ftp.gnu.org/pub/gnu/gettext/gettext-0.20.1.tar.gz
+tar xfv gettext-0.20.1.tar.gz
+cd gettext-0.20.1
+./configure \
+  --prefix=/usr \
+  --disable-static
+make -j$(nproc)
+make DESTDIR=/tmp/gettext install
+rm -rf /tmp/gettext/usr/share/doc
+rm -rf /tmp/gettext/usr/share/gettext*
+rm -rf /tmp/gettext/usr/share/info
+rm -rf /tmp/gettext/usr/share/locale
+rm -rf /tmp/gettext/usr/share/man
+cp -rv /tmp/gettext/* /
+rm -rf /tmp/gettext
+
 #curl
 cd
 wget https://curl.haxx.se/download/curl-7.65.1.tar.xz
@@ -52,6 +70,9 @@ cd git-2.22.0
   --with-gitconfig=/etc/git \
   --without-curl
 make -j$(nproc)
+rm -rf /tmp/git/usr/share
+cp -rv /tmp/git/* /
+rm -rf /tmp/git
 
 
 
