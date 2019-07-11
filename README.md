@@ -11,6 +11,28 @@ docker run -it --mount type=bind,source=/opt/sysroot,target=/opt/sysroot --rm de
 
 time bash linux.base/create.sh
 
+## ENABLE USB BOOT
+
+crossystem dev_boot_usb=1 dev_boot_signed_only=0
+
+## PARTITION USB DRIVE
+
+fdisk /dev/sda
+
+Press G and then W
+
+cgpt create /dev/sda
+
+cgpt add -i 1 -t kernel -b 8192 -s 65536 -l Kernel -S 1 -T 5 -P 10 /dev/sda
+
+cgpt show /dev/sda
+
+Write down the number from the column "START" on the row "Sec GPT table"
+
+cgpt add -i 2 -t data -b 73728 -s $(expr NUMBER_FROM_ABOVE - 73728) -l Root /dev/sda
+
+mkfs.ext4 /dev/sda2
+
 ## COPY TO USB DRIVE
 
 dd if=/opt/sysroot/boot/vmkernel.kpart /dev/sda1
