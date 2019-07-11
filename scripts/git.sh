@@ -28,6 +28,20 @@ patch -Np1 -i ../curl-7.65.1-fix_dns_segfaults-2.patch
 #  --with-ca-path=/etc/ssl/certs
 #make -j$(nproc)
 
+#tcl
+cd
+wget https://downloads.sourceforge.net/tcl/tcl8.6.9-src.tar.gz
+tar xfv tcl8.6.9-src.tar.gz
+cd tcl8.6.9
+./configure --prefix=/usr
+make -j$(nproc)
+make DESTDIR=/tmp/tcl
+rm -rf /tmp/tcl/usr/man
+rm -rf /tmp/tcl/usr/share
+cp -rv /tmp/tcl/* /
+rm -rf /tmp/tcl
+ln -s /usr/bin/tclsh8.6 /usr/bin/tclsh
+
 #git
 cd
 wget https://www.kernel.org/pub/software/scm/git/git-2.22.0.tar.xz
