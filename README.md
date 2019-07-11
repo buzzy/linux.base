@@ -37,7 +37,7 @@ mkfs.ext4 /dev/sda2
 
 dd if=/opt/sysroot/boot/vmkernel.kpart /dev/sda1
 
-rsync -aAXv /opt/sysroot /dev/sda2
+cp -rv /opt/sysroot/* /dev/sda2
 
 ## CONFIGURE WIFI
 
