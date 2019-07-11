@@ -160,7 +160,7 @@ cd build
 
 make -j$(nproc)
 make install
-ln -s /opt/sysroot/usr/bin/arm-linux-gnueabihf-gcc cc
+ln -s arm-linux-gnueabihf-gcc /opt/sysroot/usr/bin/cc
 
 #bison
 cd /opt
