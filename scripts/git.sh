@@ -32,5 +32,12 @@ patch -Np1 -i ../curl-7.65.1-fix_dns_segfaults-2.patch
 cd
 wget https://www.kernel.org/pub/software/scm/git/git-2.22.0.tar.xz
 tar xfv git-2.22.0.tar.xz
+cd git-2.22.0
+./configure \
+  --prefix=/usr \
+  --with-gitconfig=/etc/git \
+  --without-curl
+make -j$(nproc)
 
-#
+
+
