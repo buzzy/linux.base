@@ -39,12 +39,16 @@ wget http://www.linuxfromscratch.org/patches/blfs/svn/curl-7.65.1-fix_dns_segfau
 tar xfv curl-7.65.1.tar.xz
 cd curl-7.65.1
 patch -Np1 -i ../curl-7.65.1-fix_dns_segfaults-2.patch
-#./configure \
-#  --prefix=/usr \
-#  --disable-static \
-#  --enable-threaded-resolver \
-#  --with-ca-path=/etc/ssl/certs
-#make -j$(nproc)
+./configure \
+  --prefix=/usr \
+  --disable-static \
+  --enable-threaded-resolver \
+  --with-ca-path=/etc/ssl/certs
+make -j$(nproc)
+make DESTDIR=/tmp/curl install
+rm -rf /tmp/curl/usr/share/man
+cp -rv /tmp/curl/* /
+rm -rf /tmp/curl
 
 #tcl
 cd
@@ -67,9 +71,9 @@ tar xfv git-2.22.0.tar.xz
 cd git-2.22.0
 ./configure \
   --prefix=/usr \
-  --with-gitconfig=/etc/git \
-  --without-curl
+  --with-gitconfig=/etc/git
 make -j$(nproc)
+make DESTDIR=/tmp/git install
 rm -rf /tmp/git/usr/share
 cp -rv /tmp/git/* /
 rm -rf /tmp/git
