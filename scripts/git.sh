@@ -10,9 +10,31 @@ wget https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.13.tar.gz
 cd
 wget https://github.com/p11-glue/p11-kit/releases/download/0.23.16.1/p11-kit-0.23.16.1.tar.gz
 
+#perl
+cd
+wget https://www.cpan.org/src/5.0/perl-5.30.0.tar.gz
+tar xfv perl-5.30.0.tar.gz
+cd perl-5.30.0
+sh Configure \
+  -des \
+  -Dprefix=/usr \
+  -Dvendorprefix=/usr \
+  -Dpager="/usr/bin/less -isR" \
+  -Duseshrplib \
+  -Dusethreads
+
+#help2man
+cd
+wget https://ftp.gnu.org/gnu/help2man/help2man-1.47.10.tar.xz
+tar xfv help2man-1.47.10.tar.xz
+cd help2man-1.47.10
+
 #make-ca
 cd
 wget https://github.com/djlucas/make-ca/releases/download/v1.4/make-ca-1.4.tar.xz
+tar xfv make-ca-1.4.tar.xz
+cd make-ca-1.4
+
 
 #gettext
 cd
