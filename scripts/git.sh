@@ -25,17 +25,20 @@ sh Configure \
 make -j$(nproc)
 
 #help2man
-cd
-wget https://ftp.gnu.org/gnu/help2man/help2man-1.47.10.tar.xz
-tar xfv help2man-1.47.10.tar.xz
-cd help2man-1.47.10
+#cd
+#wget https://ftp.gnu.org/gnu/help2man/help2man-1.47.10.tar.xz
+#tar xfv help2man-1.47.10.tar.xz
+#cd help2man-1.47.10
+#./configure --prefix=/usr
+#make
+#install -t /usr/bin help2man
 
 #make-ca
 cd
 wget https://github.com/djlucas/make-ca/releases/download/v1.4/make-ca-1.4.tar.xz
 tar xfv make-ca-1.4.tar.xz
 cd make-ca-1.4
-
+install -vdm755 /etc/ssl
 
 #gettext
 cd
