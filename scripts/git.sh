@@ -9,6 +9,9 @@ wget https://ftp.gnu.org/gnu/libtasn1/libtasn1-4.13.tar.gz
 #p11-kit
 cd
 wget https://github.com/p11-glue/p11-kit/releases/download/0.23.16.1/p11-kit-0.23.16.1.tar.gz
+tar xfv p11-kit-0.23.16.1.tar.gz
+cd p11-kit-0.23.16.1
+
 
 #perl
 cd
@@ -38,7 +41,7 @@ cd
 wget https://github.com/djlucas/make-ca/releases/download/v1.4/make-ca-1.4.tar.xz
 tar xfv make-ca-1.4.tar.xz
 cd make-ca-1.4
-install -vdm755 /etc/ssl
+install -vdm755 /etc/ssl/local
 
 #gettext
 cd
